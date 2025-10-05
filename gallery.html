@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Complete Gallery - Sitara Hospitals</title>
+
+    <link rel="icon" href="../assets/images/srisitaralogo.JPG" type="image/jpeg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'st-primary': '#E34024',
+                        'st-secondary': '#129D5A',
+                        'st-light-bg': '#FDEEEB',
+                        'st-dark-text': '#1F2937',
+                        'st-light-text': '#6B7280',
+                        'st-white': '#FFFFFF',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        pulseEffect: { '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }, '50%': { transform: 'scale(1.02)', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2)' }, },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'pulse-button': 'pulseEffect 2s infinite ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for gallery components, adapted for Sitara theme */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img,
+        .gallery-item iframe {
+            width: 100%;
+            height: 200px; /* Fixed height for thumbnails */
+            object-fit: cover;
+            display: block;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(227, 64, 36, 0.7); /* st-primary with opacity */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            font-weight: 600; /* font-semibold */
+            font-size: 1.25rem; /* text-xl */
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.875rem; /* text-sm */
+            text-align: center;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .lightbox-content img,
+        .lightbox-content iframe {
+            max-width: 100%;
+            max-height: 70vh;
+            height: auto;
+            display: block;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        .lightbox-content iframe {
+            width: 80vw;
+            height: 45vw;
+            max-height: 70vh;
+        }
+
+        @media (min-width: 768px) {
+            .lightbox-content iframe {
+                width: 60vw;
+                height: 33.75vw;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lightbox-content iframe {
+                width: 50vw;
+                height: 28.125vw;
+            }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: transparent;
+            border: none;
+            font-size: 2rem;
+            color: #129D5A; /* st-secondary */
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: #0c7b48; /* darker st-secondary */
+        }
+
+        .lightbox-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(227, 64, 36, 0.7); /* st-primary with opacity */
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.2s;
+            z-index: 1000;
+        }
+
+        .lightbox-nav-button:hover {
+            background: #b7331b; /* darker st-primary */
+        }
+
+        .lightbox-prev {
+            left: 1rem;
+        }
+
+        .lightbox-next {
+            right: 1rem;
+        }
+
+        /* Tabs Styling (Sitara) */
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .tab-button.active {
+            background-color: #E34024; /* st-primary */
+            color: white;
+            border-color: #E34024;
+        }
+
+        .tab-button:not(.active):hover {
+            background-color: #FDEEEB; /* st-light-bg */
+            color: #E34024; /* st-primary */
+            border-color: #E34024;
+        }
+        
+        /* Social Media Link Styling (Sitara) */
+        .social-media-link-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            text-align: center;
+            color: #129D5A; /* st-secondary */
+            text-decoration: none;
+        }
+
+        .social-media-link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .social-media-link-card i {
+            margin-bottom: 0.75rem;
+            width: 3rem; 
+            height: 3rem;
+            color: #129D5A; /* st-secondary */
+        }
+        .social-media-link-card .lucide {
+            stroke-width: 1.5; 
+        }
+
+        /* Floating WhatsApp Button (Sitara) */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 1.5rem; 
+            right: 1.5rem; 
+            background-color: #25D366; /* WhatsApp green */
+            color: white;
+            border-radius: 9999px; 
+            padding: 0.75rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
+            transition: transform 0.3s ease-in-out;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-icon {
+            width: 2.5rem; 
+            height: 2.5rem; 
+        }
+
+        @media (min-width: 768px) {
+            .whatsapp-float {
+                bottom: 2rem; 
+                right: 2rem; 
+            }
+            .whatsapp-icon {
+                width: 3rem; 
+                height: 3rem; 
+            }
+        }
+    </style>
+</head>
+<body class="font-['Inter'] antialiased text-st-dark-text bg-gray-50" data-current-service="Gallery">
+
+    <header class="bg-st-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-2">
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Hospitals Logo" class="h-20 w-auto">
+            </a>
+
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="../index.html#home" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Home</a>
+                <a href="../index.html#about" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">About</a>
+                
+                <div class="relative group">
+                    <button class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300 flex items-center focus:outline-none">
+                        Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown w-72 max-h-96 overflow-y-auto">
+                        </div>
+                </div>
+
+                <a href="../index.html#doctors" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Doctors</a>
+                <a href="gallery.html" class="text-st-primary font-bold text-lg font-medium transition duration-300">Gallery</a>
+                <a href="../index.html#facilities" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Facilities</a>
+
+                <a href="../index.html#appointments" class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg">
+                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                </a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-st-primary focus:outline-none">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg pb-4 hidden">
+            <div class="px-4 py-2">
+                <a href="../index.html#home" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Home</a>
+                <a href="../index.html#about" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">About</a>
+                
+                <a href="#" id="mobile-services-dropdown-toggle" class="block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium flex justify-between items-center">
+                    Services <i data-lucide="chevron-down" class="w-4 h-4 mobile-dropdown-icon transition-transform"></i>
+                </a>
+                <div id="mobile-services-dropdown" class="ml-4 pl-2 border-l border-st-white/50 hidden">
+                    </div>
+
+                <a href="../index.html#doctors" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Doctors</a>
+                <a href="gallery.html" class="mobile-nav-link block py-2 bg-st-secondary text-st-white rounded transition font-bold">Gallery</a>
+                <a href="../index.html#facilities" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Facilities</a>
+                
+                <a href="../index.html#appointments" class="mobile-nav-link block mt-4 text-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full hover:bg-green-700 transition">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-16 md:py-24 bg-st-white">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4 text-center text-st-primary">
+                    Our Complete Gallery
+                </h1>
+                <p class="text-lg md:text-xl mb-12 opacity-90 text-center text-st-dark-text">
+                    Explore Sitara Hospitals: our modern infrastructure, dedicated team, and community moments.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 mb-12" role="tablist">
+                    <button id="photos-tab" class="tab-button active" role="tab" aria-controls="photos-content" aria-selected="true">
+                        <i data-lucide="image" class="inline-block mr-2 w-5 h-5"></i> Photos
+                    </button>
+                    <button id="videos-tab" class="tab-button" role="tab" aria-controls="videos-content" aria-selected="false">
+                        <i data-lucide="play-circle" class="inline-block mr-2 w-5 h-5"></i> Videos
+                    </button>
+                    <button id="social-media-tab" class="tab-button" role="tab" aria-controls="social-media-content" aria-selected="false">
+                        <i data-lucide="instagram" class="inline-block mr-2 w-5 h-5"></i> Social Media
+                    </button>
+                </div>
+
+                <div id="photos-content" class="tab-content" role="tabpanel" aria-labelledby="photos-tab">
+                    <h3 class="text-3xl font-bold text-st-primary mb-8 text-center">A Look Inside Sitara Hospitals</h3>
+                    <div class="gallery-grid" id="photo-gallery">
+                        
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraimage3.webp" data-title="Hospital Exterior View" data-description="The modern, welcoming facade of Sitara Hospitals.">
+                            <img src="../assets/images/sitaraimage3.webp" alt="Hospital Exterior">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraa1.webp" data-title="Spacious Reception Area" data-description="Our bright and comfortable reception for patients and visitors.">
+                            <img src="../assets/images/sitaraa1.webp" alt="Reception Area">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara4.webp" data-title="Modern Consultation Room" data-description="Private and well-equipped rooms for patient consultations.">
+                            <img src="../assets/images/sitaaara4.webp" alt="Consultation Room">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara5.webp" data-title="State-of-the-Art Operation Theater" data-description="Equipped with advanced technology for surgical procedures.">
+                            <img src="../assets/images/sitaaara5.webp" alt="Operation Theater">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara6.webp" data-title="Comfortable Patient Room" data-description="Ensuring a restful and healing environment for our patients.">
+                            <img src="../assets/images/sitaaara6.webp" alt="Patient Room">
+                            <div class="gallery-overlay">
+                              
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara7.webp" data-title="Advanced Laboratory Facilities" data-description="Precision diagnostics for accurate results.">
+                            <img src="../assets/images/sitaaara7.webp" alt="Laboratory">
+                            <div class="gallery-overlay">
+                         
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraa24.webp" data-title="Our Dedicated Medical Team" data-description="Experienced doctors committed to your health.">
+                            <img src="../assets/images/sitaraa24.webp" alt="Doctors Team">
+                            <div class="gallery-overlay">
+                             
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara8.webp" data-title="Caring Nursing Staff" data-description="Our compassionate nurses providing excellent care.">
+                            <img src="../assets/images/sitaaara8.webp" alt="Nursing Staff">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaaara9.webp" data-title="Patient-Centric Care" data-description="A moment of dedicated patient care.">
+                            <img src="../assets/images/sitaaaara9.webp" alt="Patient Care">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaaara9.webp" data-title="Intensive Care Unit (ICU)" data-description="Advanced monitoring and critical care support.">
+                            <img src="../assets/images/sitaaaara9.webp" alt="ICU Unit">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara10.webp" data-title="Neonatal Intensive Care Unit (NICU)" data-description="Specialized care for newborns requiring intensive medical attention.">
+                            <img src="../assets/images/sitaaara10.webp" alt="NICU Unit">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara11.webp" data-title="Digital X-ray & Imaging" data-description="Fast and accurate diagnostic imaging services.">
+                            <img src="../assets/images/sitaaara11.webp" alt="Digital X-ray">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaara12.webp" data-title="24/7 Ambulance Service" data-description="Equipped fleet for rapid patient transport.">
+                            <img src="../assets/images/sitaara12.webp" alt="Ambulance Service">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara13.webp" data-title="Physiotherapy & Rehabilitation" data-description="Helping patients regain mobility and strength.">
+                            <img src="../assets/images/sitaaara13.webp" alt="Rehabilitation">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaara14.webp" data-title="In-House Pharmacy" data-description="Stocked with essential medicines for patient convenience.">
+                            <img src="../assets/images/sitaara14.webp" alt="In-House Pharmacy">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaara15.webp" data-title="Comfortable Waiting Area" data-description="A pleasant space for families and visitors.">
+                            <img src="../assets/images/sitaara15.webp" alt="Waiting Area">
+                            <div class="gallery-overlay">
+                              
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaaara16.webp" data-title="One-on-One Consultation" data-description="Personalized attention from our medical experts.">
+                            <img src="../assets/images/sitaaara16.webp" alt="Consultation">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraimage3.webp" data-title="Expert Surgical Team" data-description="Performing complex procedures with precision.">
+                            <img src="../assets/images/sitaraimage3.webp" alt="Surgical Team">
+                            <div class="gallery-overlay">
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaara17.webp" data-title="Clean & Bright Corridors" data-description="Ensuring a clean and hygienic environment throughout the hospital.">
+                            <img src="../assets/images/sitaara17.webp" alt="Hospital Corridor">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaara18.webp" data-title="Advanced Patient Monitoring" data-description="Utilizing the latest technology for continuous patient safety.">
+                            <img src="../assets/images/sitaara18.webp" alt="Patient Monitoring">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaara19.webp" data-title="Community Health Initiative" data-description="Engaging with the community through health camps and awareness programs.">
+                            <img src="../assets/images/sitaara19.webp" alt="Community Event">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraa20.webp" data-title="High-Tech Equipment" data-description="Investment in modern medical tools for superior care.">
+                            <img src="../assets/images/sitaraa20.webp" alt="High-Tech Equipment">
+                            <div class="gallery-overlay">
+                            >
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraa21.webp" data-title="Staff Training & Development" data-description="Continuous learning to maintain the highest standards of care.">
+                            <img src="../assets/images/sitaraa21.webp" alt="Staff Training">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraa22.webp" data-title="Clean & Hygienic Washrooms" data-description="Prioritizing patient and visitor comfort and hygiene.">
+                            <img src="../assets/images/sitaraa22.webp" alt="Clean Washrooms">
+                            <div class="gallery-overlay">
+                                
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="../assets/images/sitaraa23.webp" data-title="Nutritious Patient Meals" data-description="Healthy and customized meals prepared for recovery.">
+                            <img src="../assets/images/sitaraa23.webp" alt="Patient Meal">
+                            <div class="gallery-overlay">
+                               
+                                <p>Click to view</p>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+
+                <div id="videos-content" class="tab-content hidden" role="tabpanel" aria-labelledby="videos-tab">
+                    <h3 class="text-3xl font-bold text-st-primary mb-8 text-center">Informative Videos & Patient Stories</h3>
+                    <div class="gallery-grid" id="video-gallery">
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Welcome to Sitara Hospitals" data-description="A virtual tour and introduction to our hospital and services.">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Welcome to Sitara Hospitals</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/g2qYhR3eIsw" data-title="Doctor's Talk on Joint Health" data-description="An informative session by our Orthopedics specialist.">
+                            <iframe src="https://www.youtube.com/embed/g2qYhR3eIsw?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Doctor's Talk on Joint Health</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/k-x_Xq9y74w" data-title="Successful Recovery Story" data-description="Hear directly from a patient who recovered with us.">
+                            <iframe src="https://www.youtube.com/embed/k-x_Xq9y74w?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Successful Recovery Story</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                         <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/o0R8d9d28s8" data-title="Daily Health Tips from Sitara" data-description="Quick tips for maintaining a healthy lifestyle.">
+                            <iframe src="https://www.youtube.com/embed/o0R8d9d28s8?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Daily Health Tips from Sitara</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/o0R8d9d28s8" data-title="Daily Health Tips from Sitara" data-description="Quick tips for maintaining a healthy lifestyle.">
+                            <iframe src="https://www.youtube.com/embed/o0R8d9d28s8?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Daily Health Tips from Sitara</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/o0R8d9d28s8" data-title="Daily Health Tips from Sitara" data-description="Quick tips for maintaining a healthy lifestyle.">
+                            <iframe src="https://www.youtube.com/embed/o0R8d9d28s8?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Daily Health Tips from Sitara</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/o0R8d9d28s8" data-title="Daily Health Tips from Sitara" data-description="Quick tips for maintaining a healthy lifestyle.">
+                            <iframe src="https://www.youtube.com/embed/o0R8d9d28s8?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Daily Health Tips from Sitara</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="https://www.youtube.com/embed/o0R8d9d28s8" data-title="Daily Health Tips from Sitara" data-description="Quick tips for maintaining a healthy lifestyle.">
+                            <iframe src="https://www.youtube.com/embed/o0R8d9d28s8?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full rounded-xl"></iframe>
+                            <div class="gallery-overlay">
+                                <h3>Daily Health Tips from Sitara</h3>
+                                <p>Click to watch</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="social-media-content" class="tab-content hidden" role="tabpanel" aria-labelledby="social-media-tab">
+                    <h3 class="text-3xl font-bold text-st-primary mb-8 text-center">Connect with us on Social Media</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <a href="https://facebook.com/sitarahospitals" target="_blank" class="social-media-link-card">
+                            <i data-lucide="facebook" class="w-12 h-12"></i>
+                            <span class="text-xl font-bold">Facebook</span>
+                            <span class="text-sm text-st-light-text mt-1">Latest updates & events</span>
+                        </a>
+                        <a href="https://instagram.com/sitarahospitals" target="_blank" class="social-media-link-card">
+                            <i data-lucide="instagram" class="w-12 h-12"></i>
+                            <span class="text-xl font-bold">Instagram</span>
+                            <span class="text-sm text-st-light-text mt-1">Behind-the-scenes & health tips</span>
+                        </a>
+                        <a href="https://youtube.com/channel/..." target="_blank" class="social-media-link-card">
+                            <i data-lucide="youtube" class="w-12 h-12"></i>
+                            <span class="text-xl font-bold">YouTube</span>
+                            <span class="text-sm text-st-light-text mt-1">Video testimonials & health talks</span>
+                        </a>
+                        <a href="https://linkedin.com/company/sitarahospitals" target="_blank" class="social-media-link-card">
+                            <i data-lucide="linkedin" class="w-12 h-12"></i>
+                            <span class="text-xl font-bold">LinkedIn</span>
+                            <span class="text-sm text-st-light-text mt-1">Professional news & career opportunities</span>
+                        </a>
+                    </div>
+                    <div class="text-center mt-12">
+                         <p class="text-lg text-st-dark-text">For quick assistance, you can also connect with us on **WhatsApp**:</p>
+                        <a href="https://wa.me/918930104108" target="_blank" class="mt-4 inline-flex items-center px-8 py-3 bg-st-secondary text-st-white font-bold text-lg rounded-full shadow-lg hover:bg-green-700 transition duration-300 transform hover:scale-105">
+                            <i data-lucide="whatsapp" class="w-6 h-6 mr-3"></i> Chat with us
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    
+    <a href="https://wa.me/918930104108" target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-green-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center" aria-label="Chat on WhatsApp">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" class="whatsapp-icon">
+    </a>
+
+    <div id="lightbox-modal" class="lightbox-modal">
+        <div class="lightbox-content">
+            <button id="lightbox-close" class="lightbox-close"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+            <button id="lightbox-prev" class="lightbox-nav-button lightbox-prev hidden"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
+            <button id="lightbox-next" class="lightbox-nav-button lightbox-next hidden"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
+            
+            <div id="lightbox-media-container" class="text-center">
+                </div>
+            <h4 id="lightbox-title" class="text-2xl font-bold text-st-primary mt-4"></h4>
+            <p id="lightbox-description" class="text-st-dark-text mt-2"></p>
+        </div>
+    </div>
+
+    <footer class="bg-st-dark-text text-st-light-bg py-12 md:py-16">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div>
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Logo" class="h-20 w-auto mb-4">
+                <p class="text-sm leading-relaxed mb-4">
+                    Sitara Hospitals: Inspired to Serve.
+                    Dedicated to providing compassionate, advanced healthcare in Karimnagar.
+                </p>
+                <p class="text-sm font-semibold">
+                    #3-1-267, Christian Colony, <br>
+                    Behind Dist. Govt. Hospital, <br>
+                    Karimnagar-505 001. (T.S.)
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="../index.html#home" class="hover:text-st-white transition">Home</a></li>
+                    <li><a href="../index.html#about" class="hover:text-st-white transition">About Us</a></li>
+                    <li><a href="../index.html#why-choose-us" class="hover:text-st-white transition">Why Choose Us</a></li> 
+                    <li><a href="../index.html#services" class="hover:text-st-white transition">Services</a></li>
+                    <li><a href="gallery.html" class="hover:text-st-white transition text-st-secondary font-bold">Gallery</a></li>
+                    <li><a href="../index.html#doctors" class="hover:text-st-white transition">Doctors</a></li>
+                    <li><a href="../index.html#facilities" class="hover:text-st-white transition">Facilities</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Contact & Emergency</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center"><i data-lucide="siren" class="w-5 h-5 mr-3 text-st-primary"></i> <span class="font-bold">24/7 Emergency:</span> 8930 104 108</li>
+                    <li class="flex items-start"> 
+                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-st-primary flex-shrink-0 mt-0.5"></i> 
+                        <div class="min-w-0"> <span class="font-bold block text-base">Email:</span>
+                            <span class="block text-base break-all">sitara.hospitals@gmail.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Follow Us</h3>
+                <div class="mb-4">
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Facebook">
+                            <i data-lucide="facebook" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://instagram.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Instagram">
+                            <i data-lucide="instagram" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on LinkedIn">
+                            <i data-lucide="linkedin" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://youtube.com/channel/..." target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Subscribe to our YouTube channel">
+                            <i data-lucide="youtube" class="w-8 h-8"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-st-light-text">Stay connected for health tips and updates.</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 text-center">
+            <p class="text-sm text-st-light-text">
+                © <span id="current-year"></span> Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Full list of specialties for dynamic dropdown generation
+        const specialties = [
+            { name: "Emergency & Critical Care", icon: "ambulance", link: "services/emergency-critical-care.html" },
+            { name: "General Medicine & Diabetology", icon: "stethoscope", link: "services/general-medicine-diabetology.html" },
+            { name: "General Surgery & Laparoscopic Surgery", icon: "scalpel", link: "services/general-surgery-laparoscopic-surgery.html" },
+            { name: "E.N.T. (Ear, Nose, and Throat)", icon: "ear", link: "services/ent-ear-nose-and-throat.html" },
+            { name: "Orthopedics & Joint Replacement (Computer Navigation)", icon: "bone", link: "services/orthopedics-joint-replacement-computer-navigation.html" },
+            { name: "Medical & Surgical Gastroenterology", icon: "thermometer-snowflake", link: "services/medical-surgical-gastroenterology.html" },
+            { name: "Urology & Nephrology", icon: "kidney", link: "services/urology-nephrology.html" },
+            { name: "Neurosurgery & Neurology", icon: "brain", link: "services/neurosurgery-neurology.html" },
+            { name: "Plastic & Reconstructive Surgery", icon: "bandage", link: "services/plastic-reconstructive-surgery.html" },
+            { name: "Surgical Oncology", icon: "shield-x", link: "services/surgical-oncology.html" },
+            { name: "Pulmonology", icon: "lungs", link: "services/pulmonology.html" },
+            { name: "Maxillofacial Surgery", icon: "chevrons-up-down", link: "services/maxillofacial-surgery.html" },
+        ];
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            const currentServiceName = document.body.getAttribute('data-current-service');
+            const desktopDropdown = document.querySelector('.services-dropdown');
+            const mobileDropdown = document.getElementById('mobile-services-dropdown');
+            
+            // Function to create dropdown links
+            const createServiceLink = (service, isMobile = false) => {
+                const link = document.createElement('a');
+                link.href = service.link; 
+
+                if (isMobile) {
+                    let classes = 'mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium';
+                    // Special highlighting for the current page (Gallery) - *Self-Correction for Gallery*
+                    if (currentServiceName === "Gallery" && service.name === "Gallery") { 
+                        classes = 'mobile-nav-link block py-2 bg-st-secondary text-st-white rounded transition font-bold';
+                    }
+                    // For the Services dropdown links
+                    if (service.name === currentServiceName) {
+                        classes = 'mobile-nav-link block py-2 bg-st-secondary text-st-white rounded transition font-bold';
+                    }
+                    link.className = classes;
+                    link.innerHTML = `${service.name}`;
+                } else {
+                    // Desktop dropdown links
+                    link.className = 'block px-4 py-2 text-sm text-st-white hover:bg-st-primary transition duration-200 border-b border-st-white/10 last:border-b-0';
+                    link.innerHTML = `${service.name}`;
+                }
+                return link;
+            };
+
+            // Populate services dropdowns
+            specialties.forEach(service => {
+                // Adjust link to navigate relative to gallery.html's location
+                const adjustedService = { ...service, link: `../${service.link}` };
+
+                if (desktopDropdown) desktopDropdown.appendChild(createServiceLink(adjustedService));
+                if (mobileDropdown) mobileDropdown.appendChild(createServiceLink(adjustedService, true));
+            });
+
+
+            // --- Header & Mobile Menu Logic ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileServicesToggle = document.getElementById('mobile-services-dropdown-toggle');
+            const mobileDropdownIcon = document.querySelector('.mobile-dropdown-icon');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').setAttribute('data-lucide', mobileMenu.classList.contains('hidden') ? 'menu' : 'x');
+                lucide.createIcons(); 
+            });
+
+            if (mobileServicesToggle) {
+                mobileServicesToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    mobileDropdown.classList.toggle('hidden');
+                    mobileDropdownIcon.classList.toggle('rotate-180');
+                });
+            }
+
+
+            // --- Gallery Tabs Logic ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Deactivate all
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-selected', 'false');
+                    });
+                    tabContents.forEach(content => content.classList.add('hidden'));
+
+                    // Activate selected
+                    button.classList.add('active');
+                    button.setAttribute('aria-selected', 'true');
+                    const targetContent = document.getElementById(button.getAttribute('aria-controls'));
+                    if (targetContent) {
+                        targetContent.classList.remove('hidden');
+                        lucide.createIcons(); // Re-render lucide icons in the new tab
+                    }
+                });
+            });
+
+
+            // --- Lightbox Logic ---
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxClose = document.getElementById('lightbox-close');
+            const lightboxContainer = document.getElementById('lightbox-media-container');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDescription = document.getElementById('lightbox-description');
+            const lightboxPrev = document.getElementById('lightbox-prev');
+            const lightboxNext = document.getElementById('lightbox-next');
+
+            let currentGallery = [];
+            let currentIndex = -1;
+
+            const openLightbox = (index, items) => {
+                currentGallery = items;
+                currentIndex = index;
+                renderLightboxContent();
+                lightboxModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeLightbox = () => {
+                lightboxModal.classList.remove('active');
+                document.body.style.overflow = '';
+                lightboxContainer.innerHTML = '';
+            };
+
+            const renderLightboxContent = () => {
+                const item = currentGallery[currentIndex];
+                lightboxContainer.innerHTML = ''; // Clear previous content
+
+                if (item.dataset.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = item.dataset.src;
+                    img.alt = item.dataset.title;
+                    lightboxContainer.appendChild(img);
+                    lightboxPrev.classList.remove('hidden');
+                    lightboxNext.classList.remove('hidden');
+                } else if (item.dataset.type === 'video') {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = item.dataset.src.includes('?') ? `${item.dataset.src}&autoplay=1` : `${item.dataset.src}?autoplay=1`;
+                    iframe.frameBorder = 0;
+                    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                    iframe.allowFullscreen = true;
+                    lightboxContainer.appendChild(iframe);
+                    lightboxPrev.classList.add('hidden'); // Disable navigation for video tab
+                    lightboxNext.classList.add('hidden');
+                }
+
+                lightboxTitle.textContent = item.dataset.title;
+                lightboxDescription.textContent = item.dataset.description;
+
+                // Toggle navigation buttons visibility based on index
+                lightboxPrev.style.display = (currentIndex > 0 && item.dataset.type === 'image') ? 'block' : 'none';
+                lightboxNext.style.display = (currentIndex < currentGallery.length - 1 && item.dataset.type === 'image') ? 'block' : 'none';
+            };
+
+            const showNext = () => {
+                if (currentIndex < currentGallery.length - 1) {
+                    currentIndex++;
+                    renderLightboxContent();
+                }
+            };
+
+            const showPrev = () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    renderLightboxContent();
+                }
+            };
+
+            // Re-select all gallery items dynamically
+            const photoGallery = document.getElementById('photo-gallery');
+            const videoGallery = document.getElementById('video-gallery');
+
+            // Function to add click listeners
+            const addGalleryListeners = (galleryElement) => {
+                const items = Array.from(galleryElement.querySelectorAll('.gallery-item'));
+                items.forEach((item, index) => {
+                    // Remove existing listeners to prevent duplication
+                    const clone = item.cloneNode(true);
+                    item.parentNode.replaceChild(clone, item);
+                });
+                
+                // Add new listeners to the clones (which are now the actual DOM elements)
+                const freshItems = Array.from(galleryElement.querySelectorAll('.gallery-item'));
+                freshItems.forEach((item, index) => {
+                    item.addEventListener('click', () => {
+                        const currentItems = Array.from(item.closest('.gallery-grid').querySelectorAll('.gallery-item'));
+                        const clickedIndex = currentItems.indexOf(item);
+                        openLightbox(clickedIndex, currentItems);
+                    });
+                });
+            };
+
+            // Call immediately for initial population
+            addGalleryListeners(photoGallery);
+            addGalleryListeners(videoGallery); // Ensure video items also get listeners
+
+            // Re-apply listeners after a tab switch to ensure the correct gallery array is used
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('aria-controls');
+                    if (targetId === 'photos-content') {
+                        addGalleryListeners(photoGallery);
+                    } else if (targetId === 'videos-content') {
+                        addGalleryListeners(videoGallery);
+                    }
+                });
+            });
+
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', showPrev);
+            lightboxNext.addEventListener('click', showNext);
+
+            // Close lightbox on backdrop click
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard navigation (Escape, Left/Right arrow)
+            document.addEventListener('keydown', (e) => {
+                if (lightboxModal.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        closeLightbox();
+                    } else if (e.key === 'ArrowLeft' && currentGallery.length > 0 && currentGallery[currentIndex].dataset.type === 'image') {
+                        showPrev();
+                    } else if (e.key === 'ArrowRight' && currentGallery.length > 0 && currentGallery[currentIndex].dataset.type === 'image') {
+                        showNext();
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

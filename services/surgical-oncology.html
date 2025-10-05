@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Oncology - Sitara Hospitals</title>
+
+    <link rel="icon" href="../assets/images/srisitaralogo.JPG" type="image/jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Sitara Hospitals Tailwind Config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'st-primary': '#E34024',
+                        'st-secondary': '#129D5A',
+                        'st-light-bg': '#FDEEEB',
+                        'st-dark-text': '#1F2937',
+                        'st-light-text': '#6B7280',
+                        'st-white': '#FFFFFF',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' }, },
+                        pulseEffect: { '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }, '50%': { transform: 'scale(1.02)', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2)' }, },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'pulse-button': 'pulseEffect 2s infinite ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for the services-scroller */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Desktop Dropdown Style for Scrolling and Wrapping */
+        .services-dropdown-desktop {
+            max-height: 50vh; /* Set a maximum height */
+            overflow-y: auto; /* Enable vertical scroll */
+            padding-right: 8px; /* Add some padding to prevent scrollbar from touching content */
+        }
+        .services-dropdown-desktop a {
+            white-space: normal; /* Allow text to wrap */
+        }
+    </style>
+</head>
+<body class="font-['Inter'] antialiased text-st-dark-text bg-gray-50" data-current-service="Surgical Oncology">
+
+    <header class="bg-st-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-2">
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Hospitals Logo" class="h-20 w-auto"> 
+            </a>
+
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="../index.html#home" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Home</a>
+                <a href="../index.html#about" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">About</a>
+
+                <div class="relative group">
+                    <button class="text-st-secondary font-bold text-lg font-medium transition duration-300 flex items-center focus:outline-none">
+                        Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown services-dropdown-desktop w-72 text-st-white">
+                    </div>
+                </div>
+
+                <a href="../gallery.html" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Gallery</a>
+                <a href="../index.html#doctors" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Doctors</a>
+                <a href="../index.html#facilities" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Facilities</a>
+
+                <a href="../index.html#appointments" class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg">
+                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                </a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-st-primary focus:outline-none">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg pb-4 hidden">
+            <div class="px-4 py-2">
+                <a href="../index.html#home" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Home</a>
+                <a href="../index.html#about" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">About</a>
+                
+                <a href="#" id="mobile-services-dropdown-toggle" class="block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium flex justify-between items-center">
+                    Services <i data-lucide="chevron-down" class="w-4 h-4 mobile-dropdown-icon transition-transform"></i>
+                </a>
+                <div id="mobile-services-dropdown" class="ml-4 pl-2 border-l border-st-white/50 hidden">
+                    </div>
+
+                <a href="../gallery.html" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Gallery</a>
+                <a href="../index.html#doctors" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Doctors</a>
+                <a href="../index.html#facilities" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Facilities</a>
+                
+                <a href="../index.html#appointments" class="mobile-nav-link block mt-4 text-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full hover:bg-green-700 transition">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="relative bg-gradient-to-r from-st-primary/80 to-st-dark-text/60 text-st-white py-20 md:py-24" style="background-image: url('../assets/images/surgical-oncology-hero-bg.jpg'); background-size: cover; background-position: center; background-blend-mode: multiply;">
+            <div class="absolute inset-0 bg-st-dark-text opacity-60"></div>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <i data-lucide="shield-x" class="w-12 h-12 text-st-white mx-auto mb-4 animate-fade-in-up"></i>
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">Surgical Oncology</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Specialized surgical expertise for the diagnosis and curative treatment of various cancers.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-st-white">
+            <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+                <div class="lg:col-span-2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-st-dark-text mb-6 border-l-4 border-st-primary pl-4">Precision Surgery in Comprehensive Cancer Care</h2>
+                    <div class="prose prose-lg max-w-none text-st-light-text leading-relaxed">
+                        <p>
+                            Our Surgical Oncology department, led by Consultant Surgical Oncologist **Dr. Prashanth Kumar** (MS, MCh Surgical Oncology), provides definitive surgical intervention as a core component of cancer treatment. We work closely with other specialists (medical oncology and radiation oncology) to provide personalized, multi-modality care plans.
+                        </p>
+
+                        <h3 class="text-2xl font-semibold text-st-dark-text mt-8 mb-4">Focus Areas & Surgical Expertise</h3>
+                        <p>
+                            Dr. Prashanth Kumar specializes in highly complex surgical procedures aimed at achieving optimal oncological outcomes, including:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                            <div>
+                                <h4 class="text-xl font-bold text-st-dark-text mt-4 mb-2">Breast Oncology:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start py-1"><i data-lucide="chevrons-right" class="w-5 h-5 text-st-secondary mr-3 mt-1 flex-shrink-0"></i>Breast Conservation Surgery (BCS)</li>
+                                    <li class="flex items-start py-1"><i data-lucide="chevrons-right" class="w-5 h-5 text-st-secondary mr-3 mt-1 flex-shrink-0"></i>Modified Radical Mastectomy (MRM)</li>
+                                    <li class="flex items-start py-1"><i data-lucide="chevrons-right" class="w-5 h-5 text-st-secondary mr-3 mt-1 flex-shrink-0"></i>Sentinel Lymph Node Biopsy</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-st-dark-text mt-4 mb-2">Gastrointestinal (GI) Oncology:</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start py-1"><i data-lucide="chevrons-right" class="w-5 h-5 text-st-primary mr-3 mt-1 flex-shrink-0"></i>Colorectal Cancer Surgery</li>
+                                    <li class="flex items-start py-1"><i data-lucide="chevrons-right" class="w-5 h-5 text-st-primary mr-3 mt-1 flex-shrink-0"></i>Stomach and Esophageal Cancer Surgery</li>
+                                    <li class="flex items-start py-1"><i data-lucide="chevrons-right" class="w-5 h-5 text-st-primary mr-3 mt-1 flex-shrink-0"></i>Liver and Pancreatic Tumor Resections</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold text-st-dark-text mt-8 mb-4">Other Oncological Surgeries</h3>
+                        <p>
+                            We treat a variety of other solid tumors, ensuring the widest margin of excision possible while preserving function and quality of life.
+                        </p>
+                        <div class="mt-4 p-5 bg-st-light-bg rounded-lg border-l-4 border-st-secondary">
+                            <ul class="list-disc list-inside ml-4 text-st-dark-text font-medium space-y-2">
+                                <li>**Head & Neck Oncology:** Management of oral, thyroid, and laryngeal cancers.</li>
+                                <li>**Gynecological Oncology:** Surgical treatment for ovarian, uterine, and cervical cancers.</li>
+                                <li>**Uro-Oncology:** Surgery for kidney, bladder, and prostate cancers.</li>
+                                <li>**Soft Tissue Sarcomas:** Wide excision and limb salvage procedures.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-10">
+                            <a href="../index.html#appointments" class="inline-flex items-center px-8 py-3 bg-st-primary text-st-white font-bold text-lg rounded-full shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105">
+                                Book an Oncology Consultation <i data-lucide="calendar-plus" class="ml-3 w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="lg:col-span-1">
+                    <div class="bg-st-light-bg p-8 rounded-xl shadow-lg border-t-4 border-st-secondary sticky top-32">
+                        <h3 class="text-2xl font-bold text-st-dark-text mb-6 text-center">Our Consultant Surgical Oncologist</h3>
+                        <div class="text-center">
+                            <img src="../assets/images/placeholder-male.jpg" alt="Dr. Prashanth Kumar" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-st-white shadow-md">
+                            <h4 class="text-xl font-bold text-st-primary">Dr. Prashanth Kumar</h4>
+                            <p class="text-st-light-text font-medium">MS, MCh Surgical Oncology</p>
+                            <p class="text-st-secondary font-semibold mt-1">Specialist in Cancer Surgery</p>
+                            <a href="../index.html#appointments" class="mt-6 w-full inline-flex items-center justify-center px-4 py-2 bg-st-secondary text-st-white font-semibold rounded-full hover:bg-green-700 transition">
+                                Request a Consult
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-st-primary p-6 rounded-xl shadow-xl text-st-white text-center">
+                        <i data-lucide="search-check" class="w-8 h-8 mx-auto text-st-white mb-3"></i>
+                        <h4 class="text-xl font-bold mb-2">Early Detection is Key</h4>
+                        <p class="text-base font-medium">Schedule a cancer screening or evaluation for suspicious masses immediately.</p>
+                        <a href="../index.html#appointments" class="mt-3 inline-block text-st-secondary font-bold hover:underline transition">Book Screening</a>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="services" class="py-16 md:py-24 bg-st-white opacity-0 translate-y-20 transition duration-700">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-st-dark-text mb-4">Other Centres of Excellence</h2>
+                <p class="text-lg text-center text-st-light-text max-w-3xl mx-auto mb-12">
+                    Browse our full range of specialties and advanced healthcare services.
+                </p>
+                <div class="relative">
+                    <div class="flex overflow-x-scroll scrollbar-hide space-x-8 py-4 px-2 snap-x snap-mandatory" id="services-scroller">
+                        </div>
+                    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-st-secondary p-2 rounded-full text-st-white hover:bg-green-700 transition z-20 shadow-lg" id="prev-service">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-st-secondary p-2 rounded-full text-st-white hover:bg-green-700 transition z-20 shadow-lg" id="next-service">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-st-dark-text text-st-light-bg py-12 md:py-16">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div>
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Logo" class="h-20 w-auto mb-4">
+                <p class="text-sm leading-relaxed mb-4">
+                    Sitara Hospitals: Inspired to Serve.
+                    Dedicated to providing compassionate, advanced healthcare in Karimnagar.
+                </p>
+                <p class="text-sm font-semibold">
+                    #3-1-267, Christian Colony, <br>
+                    Behind Dist. Govt. Hospital, <br>
+                    Karimnagar-505 001. (T.S.)
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="../index.html#home" class="hover:text-st-white transition">Home</a></li>
+                    <li><a href="../index.html#about" class="hover:text-st-white transition">About Us</a></li>
+                    <li><a href="../index.html#why-choose-us" class="hover:text-st-white transition">Why Choose Us</a></li> 
+                    <li><a href="../index.html#services" class="hover:text-st-white transition">Services</a></li>
+                    <li><a href="../gallery.html" class="hover:text-st-white transition">Gallery</a></li>
+                    <li><a href="../index.html#doctors" class="hover:text-st-white transition">Doctors</a></li>
+                    <li><a href="../index.html#facilities" class="hover:text-st-white transition">Facilities</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Contact & Emergency</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center"><i data-lucide="siren" class="w-5 h-5 mr-3 text-st-primary"></i> <span class="font-bold">24/7 Emergency:</span> 8930 104 108</li>
+                    <li class="flex items-start"> 
+                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-st-primary flex-shrink-0 mt-0.5"></i> 
+                        <div class="min-w-0"> <span class="font-bold block text-base">Email:</span>
+                            <span class="block text-base break-all">sitara.hospitals@gmail.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Follow Us</h3>
+                <div class="mb-4">
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Facebook">
+                            <i data-lucide="facebook" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://instagram.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Instagram">
+                            <i data-lucide="instagram" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on LinkedIn">
+                            <i data-lucide="linkedin" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://youtube.com/channel/..." target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Subscribe to our YouTube channel">
+                            <i data-lucide="youtube" class="w-8 h-8"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-st-light-text">Stay connected for health tips and updates.</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 text-center">
+            <p class="text-sm text-st-light-text">
+                © <span id="current-year"></span> Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+    <script>
+        // UPDATED Specialities List
+        const allSpecialties = [
+            // Corrected links to match the new 12-service requirement for better file naming convention
+            { name: "Emergency & Critical Care", icon: "ambulance", link: "emergency-critical-care.html" },
+            { name: "General Medicine & Diabetology", icon: "stethoscope", link: "general-medicine-diabetology.html" },
+            { name: "General Surgery & Laparoscopic Surgery", icon: "scalpel", link: "general-surgery-laparoscopic-surgery.html" },
+            { name: "E.N.T. (Ear, Nose, and Throat)", icon: "ear", link: "ent-ear-nose-and-throat.html" },
+            { name: "Gynaecology & Obstetrics", icon: "baby", link: "gynaecology.html" }, // Kept gynaecology for consistency with original script for the one not in the final 12 list
+            { name: "Orthopedics & Joint Replacement (Computer Navigation)", icon: "bone", link: "orthopedics-joint-replacement-computer-navigation.html" },
+            { name: "Poly Trauma", icon: "car-crash", link: "poly-trauma.html" }, // Kept poly-trauma
+            { name: "Medical & Surgical Gastroenterology", icon: "thermometer-snowflake", link: "medical-surgical-gastroenterology.html" },
+            { name: "Urology & Nephrology", icon: "kidney", link: "urology-nephrology.html" },
+            { name: "Neurosurgery & Neurology", icon: "brain", link: "neurosurgery-neurology.html" },
+            { name: "Cardiology", icon: "heart-pulse", link: "cardiology.html" }, // Kept cardiology
+            { name: "Plastic & Reconstructive Surgery", icon: "bandage", link: "plastic-reconstructive-surgery.html" },
+            { name: "Surgical Oncology", icon: "shield-x", link: "surgical-oncology.html" },
+            { name: "Pulmonology", icon: "lungs", link: "pulmonology.html" },
+            { name: "Vascular Surgery", icon: "droplet", link: "vascular-surgery.html" }, // Kept vascular-surgery
+            { name: "Maxillofacial Surgery", icon: "chevrons-up-down", link: "maxillofacial-surgery.html" },
+        ];
+
+        // The final 12 service links the user wants to keep
+        const wantedServiceLinks = [
+            "emergency-critical-care.html",
+            "general-medicine-diabetology.html",
+            "general-surgery-laparoscopic-surgery.html",
+            "ent-ear-nose-and-throat.html",
+            "orthopedics-joint-replacement-computer-navigation.html",
+            "medical-surgical-gastroenterology.html",
+            "urology-nephrology.html",
+            "neurosurgery-neurology.html",
+            "plastic-reconstructive-surgery.html",
+            "surgical-oncology.html",
+            "pulmonology.html",
+            "maxillofacial-surgery.html"
+        ];
+
+        // Filter the full list to create the final list of specialties
+        const specialties = allSpecialties.filter(service => 
+            wantedServiceLinks.includes(service.link)
+        );
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the current page's file name (e.g., surgical-oncology.html)
+            const currentPage = location.pathname.split('/').pop();
+
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').setAttribute('data-lucide', mobileMenu.classList.contains('hidden') ? 'menu' : 'x');
+                lucide.createIcons(); 
+            });
+
+            // --- Services Dropdown Population (Desktop & Mobile) ---
+            const desktopDropdown = document.querySelector('.services-dropdown');
+            const mobileDropdown = document.getElementById('mobile-services-dropdown');
+            
+            const createServiceLink = (service, isMobile = false) => {
+                const link = document.createElement('a');
+                link.href = service.link; 
+                
+                let classes = '';
+                if (isMobile) {
+                    classes = 'mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium';
+                    // Mobile Highlight Logic
+                    if (service.link === currentPage) {
+                        classes += ' bg-st-secondary/80 font-bold';
+                    }
+                } else {
+                    classes = 'block px-4 py-2 text-sm hover:bg-st-primary hover:text-st-white transition duration-200 border-b border-st-white/10 last:border-b-0'; 
+                    // Desktop Highlight Logic (less pronounced)
+                    if (service.link === currentPage) {
+                         classes += ' bg-st-primary/80 font-bold';
+                    }
+                }
+
+                link.className = classes;
+                link.innerHTML = `${service.name}`;
+                return link;
+            };
+
+            // Clear existing content and populate dropdowns
+            if (desktopDropdown) desktopDropdown.innerHTML = '';
+            if (mobileDropdown) mobileDropdown.innerHTML = '';
+            
+            specialties.forEach(service => {
+                if(desktopDropdown) desktopDropdown.appendChild(createServiceLink(service));
+                if(mobileDropdown) mobileDropdown.appendChild(createServiceLink(service, true));
+            });
+
+            // Mobile Services Dropdown Toggle
+            const mobileServicesToggle = document.getElementById('mobile-services-dropdown-toggle');
+            const mobileDropdownIcon = document.querySelector('.mobile-dropdown-icon');
+            if (mobileServicesToggle && mobileDropdownIcon) {
+                mobileServicesToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    mobileDropdown.classList.toggle('hidden');
+                    mobileDropdownIcon.classList.toggle('rotate-180');
+                });
+                
+                // Keep mobile dropdown open by default if the current page is a service page
+                if (currentPage !== 'index.html' && currentPage.includes('.html')) {
+                    mobileDropdown.classList.remove('hidden');
+                    mobileDropdownIcon.classList.add('rotate-180');
+                }
+            }
+
+
+            // --- Service Carousel Functionality (Other Centres of Excellence) ---
+            const scroller = document.getElementById('services-scroller');
+            const prevButton = document.getElementById('prev-service');
+            const nextButton = document.getElementById('next-service');
+
+            const createCarouselCard = (service) => {
+                // Skip the current page in the 'Other Centres of Excellence' section
+                if (service.link === currentPage) return null; 
+
+                const card = document.createElement('a');
+                card.href = service.link;
+                
+                // Added border-st-primary/50 to the current page's link in the desktop header to give a visual cue
+                card.className = 'flex-shrink-0 w-64 md:w-80 snap-center bg-st-white p-6 rounded-xl shadow-lg border-b-4 border-st-secondary hover:shadow-xl hover:border-st-primary transition duration-300 transform hover:-translate-y-1';
+                card.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <i data-lucide="${service.icon}" class="w-8 h-8 text-st-primary"></i>
+                        <h3 class="text-xl font-bold text-st-dark-text">${service.name}</h3>
+                    </div>
+                    <p class="text-sm text-st-light-text mt-3">Expert care in ${service.name.toLowerCase().replace(/\s\(.*\)/, '')}.</p>
+                `;
+                return card;
+            };
+
+            // Populate the carousel
+            if(scroller) {
+                scroller.innerHTML = '';
+                specialties.forEach(service => {
+                    const card = createCarouselCard(service);
+                    if (card) {
+                        scroller.appendChild(card);
+                    }
+                });
+            }
+            // Re-initialize Lucide icons after populating
+            lucide.createIcons();
+
+            // Carousel Scroll Logic
+            const scrollDistance = 300; 
+            
+            if (prevButton) prevButton.addEventListener('click', () => {
+                if (scroller) scroller.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+            });
+
+            if (nextButton) nextButton.addEventListener('click', () => {
+                if (scroller) scroller.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+            });
+
+            // Initial visibility of the service section (scroll reveal)
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            servicesSection.classList.remove('opacity-0', 'translate-y-20');
+                            observer.unobserve(servicesSection);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(servicesSection);
+            }
+        });
+    </script>
+    <a href="https://wa.me/918930104108" target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-green-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center" aria-label="Chat on WhatsApp">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-10 h-10 md:w-12 md:h-12">
+    </a>
+
+</body>
+</html>

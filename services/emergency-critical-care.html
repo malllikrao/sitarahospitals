@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24/7 Emergency & Critical Care - Sitara Hospitals</title>
+
+    <link rel="icon" href="../assets/images/srisitaralogo.JPG" type="image/jpeg"> 
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Sitara Hospitals Tailwind Config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'st-primary': '#E34024',
+                        'st-secondary': '#129D5A',
+                        'st-light-bg': '#FDEEEB',
+                        'st-dark-text': '#1F2937',
+                        'st-light-text': '#6B7280',
+                        'st-white': '#FFFFFF',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' }, },
+                        pulseEffect: { '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }, '50%': { transform: 'scale(1.02)', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2)' }, },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'pulse-button': 'pulseEffect 2s infinite ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for the services-scroller (Improved vendor prefix usage) */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* FIX: Ensures the mobile menu content itself is scrollable if it exceeds the screen height */
+        .mobile-menu-scrollable {
+            /* 88px is the height of the h-20 logo container plus padding (100vh - (20*4 + 12*2)) */
+            max-height: calc(100vh - 88px); 
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="font-['Inter'] antialiased text-st-dark-text bg-gray-50" data-current-service="Emergency & Critical Care">
+
+    <header class="bg-st-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-2" aria-label="Sitara Hospitals Home">
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Hospitals Logo" class="h-20 w-auto"> 
+            </a>
+
+            <nav class="hidden md:flex space-x-8 items-center" aria-label="Primary Navigation">
+                <a href="../index.html#home" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Home</a>
+                <a href="../index.html#about" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">About</a>
+
+                <div class="relative group">
+                    <button class="text-st-secondary font-bold text-lg font-medium transition duration-300 flex items-center focus:outline-none" aria-expanded="false" aria-controls="services-dropdown-content">
+                        Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <div id="services-dropdown-content" class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown w-80 max-h-96 overflow-y-auto text-st-white" role="menu">
+                        </div>
+                </div>
+
+                <a href="../gallery.html" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Gallery</a>
+                <a href="../index.html#doctors" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Doctors</a>
+                <a href="../index.html#facilities" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Facilities</a>
+
+                <a href="../index.html#appointments" class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg">
+                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                </a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-st-primary focus:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg hidden" role="dialog" aria-modal="true">
+            <div class="px-4 py-2 mobile-menu-scrollable" role="menu">
+                <a href="../index.html#home" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium" role="menuitem">Home</a>
+                <a href="../index.html#about" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium" role="menuitem">About</a>
+                
+                <a href="#" id="mobile-services-dropdown-toggle" class="block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium flex justify-between items-center" aria-expanded="false" aria-controls="mobile-services-dropdown" role="button">
+                    Services <i data-lucide="chevron-down" class="w-4 h-4 mobile-dropdown-icon transition-transform"></i>
+                </a>
+                
+                <div id="mobile-services-dropdown" class="ml-4 pl-2 border-l border-st-white/50 hidden" role="menu">
+                    </div>
+
+                <a href="../gallery.html" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium" role="menuitem">Gallery</a>
+                <a href="../index.html#doctors" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium" role="menuitem">Doctors</a>
+                <a href="../index.html#facilities" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium" role="menuitem">Facilities</a>
+                
+                <a href="../index.html#appointments" class="mobile-nav-link block mt-4 text-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full hover:bg-green-700 transition" role="menuitem">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative bg-gradient-to-r from-st-primary/80 to-st-dark-text/70 text-st-white py-20 md:py-24" style="background-image: url('../assets/images/emergency-hero-bg.jpg'); background-size: cover; background-position: center; background-blend-mode: multiply;">
+            <div class="absolute inset-0 bg-st-dark-text opacity-50" aria-hidden="true"></div>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <i data-lucide="siren" class="w-12 h-12 text-st-white mx-auto mb-4 animate-fade-in-up"></i>
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">24/7 Emergency & Critical Care</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Immediate response, expert trauma management, and state-of-the-art ICU facilities, available round-the-clock when seconds count.
+                </p>
+                <p class="text-2xl font-bold mt-6 animate-fade-in-up" style="animation-delay: 0.5s;">
+                    Emergency Hotline: <a href="tel:+918930104108" class="text-st-secondary hover:text-st-white transition duration-300">8930 104 108</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-st-white">
+            <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+                <div class="lg:col-span-2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-st-dark-text mb-6 border-l-4 border-st-primary pl-4">The Lifeline of Sitara Hospitals: Our ICU & Trauma Unit</h2>
+                    <div class="prose prose-lg max-w-none text-st-light-text leading-relaxed">
+                        <p>
+                            Our Emergency and Critical Care unit is the **highest priority** department at Sitara Hospitals. We operate a dedicated, fully-staffed service **24 hours a day, 7 days a week**, ensuring immediate attention for all medical emergencies, accidents, and life-threatening conditions. Our team, comprising specialists in Critical Care Medicine, Anaesthesiology, and Emergency Surgery, is trained for rapid assessment and stabilization.
+                        </p>
+
+                        <h3 class="text-2xl font-semibold text-st-dark-text mt-8 mb-4">Critical Care Unit (ICU) Capabilities</h3>
+                        <p>
+                            The Sitara ICU is equipped with advanced technology to manage the most critically ill patients:
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8" role="list">
+                            <li class="flex items-center py-1"><i data-lucide="monitor-play" class="w-5 h-5 text-st-secondary mr-3" aria-hidden="true"></i>Advanced Hemodynamic Monitoring</li>
+                            <li class="flex items-center py-1"><i data-lucide="heart" class="w-5 h-5 text-st-secondary mr-3" aria-hidden="true"></i>Continuous Cardiac Monitoring</li>
+                            <li class="flex items-center py-1"><i data-lucide="lungs" class="w-5 h-5 text-st-secondary mr-3" aria-hidden="true"></i>Mechanical Ventilation and Life Support</li>
+                            <li class="flex items-center py-1"><i data-lucide="syringe" class="w-5 h-5 text-st-secondary mr-3" aria-hidden="true"></i>24/7 Access to Diagnostic Imaging (C-ARM)</li>
+                            <li class="flex items-center py-1"><i data-lucide="flask-conical" class="w-5 h-5 text-st-secondary mr-3" aria-hidden="true"></i>Dedicated Critical Care Physicians</li>
+                            <li class="flex items-center py-1"><i data-lucide="gavel" class="w-5 h-5 text-st-secondary mr-3" aria-hidden="true"></i>Poisoning and Overdose Management</li>
+                        </ul>
+
+                        <h3 class="text-2xl font-semibold text-st-dark-text mt-8 mb-4">Emergency Services Provided</h3>
+                        <p>
+                            From minor injuries to major life-saving interventions, our trauma team is prepared for:
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8" role="list">
+                            <li class="flex items-center py-1"><i data-lucide="ambulance" class="w-5 h-5 text-st-primary mr-3" aria-hidden="true"></i>Trauma and Accident Care</li>
+                            <li class="flex items-center py-1"><i data-lucide="brain" class="w-5 h-5 text-st-primary mr-3" aria-hidden="true"></i>Stroke and Head Injury Management</li>
+                            <li class="flex items-center py-1"><i data-lucide="heart-pulse" class="w-5 h-5 text-st-primary mr-3" aria-hidden="true"></i>Acute Cardiac Events (Heart Attacks)</li>
+                            <li class="flex items-center py-1"><i data-lucide="knife" class="w-5 h-5 text-st-primary mr-3" aria-hidden="true"></i>Emergency General Surgery</li>
+                        </ul>
+
+                        <div class="mt-10 p-6 bg-st-light-bg rounded-xl border-l-4 border-st-secondary">
+                            <h4 class="text-xl font-bold text-st-dark-text mb-3">❗ When to Call the Emergency Line</h4>
+                            <p class="text-base text-st-dark-text">If you or someone else experiences chest pain, severe bleeding, difficulty breathing, sudden paralysis, unconsciousness, or major trauma, dial **8930 104 108** immediately.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="lg:col-span-1" aria-labelledby="specialist-heading">
+                    <div class="bg-st-light-bg p-8 rounded-xl shadow-lg border-t-4 border-st-primary sticky top-32">
+                        <h3 id="specialist-heading" class="text-2xl font-bold text-st-dark-text mb-6 text-center">Our Critical Care Specialist</h3>
+                        <div class="text-center">
+                            <img src="../assets/images/placeholder-female.jpg" alt="Portrait of Dr. Anusha Reddy, Lead Critical Care and Trauma Specialist" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-st-white shadow-md">
+                            <h4 class="text-xl font-bold text-st-primary">Dr. Anusha Reddy</h4>
+                            <p class="text-st-light-text font-medium">MD (Anesthesia), Fellowship in Critical Care</p>
+                            <p class="text-secondary font-semibold mt-1">Lead Critical Care and Trauma Specialist</p>
+                            <a href="../index.html#appointments" class="mt-6 w-full inline-flex items-center justify-center px-4 py-2 bg-st-secondary text-st-white font-semibold rounded-full hover:bg-green-700 transition">
+                                Request a Consult (Non-Emergency)
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-st-dark-text p-6 rounded-xl shadow-xl text-st-white text-center">
+                        <i data-lucide="phone-call" class="w-8 h-8 mx-auto text-st-primary mb-3" aria-hidden="true"></i>
+                        <h4 class="text-xl font-bold mb-2">24/7 Emergency Support</h4>
+                        <a href="tel:+918930104108" class="text-3xl font-extrabold text-st-secondary hover:text-st-light-bg transition">8930 104 108</a>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="services" class="py-16 md:py-24 bg-st-white opacity-0 translate-y-20 transition duration-700" aria-label="Other Centres of Excellence">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-st-dark-text mb-4">Other Centres of Excellence</h2>
+                <p class="text-lg text-center text-st-light-text max-w-3xl mx-auto mb-12">
+                    Browse our full range of specialties and advanced healthcare services.
+                </p>
+                <div class="relative">
+                    <div class="flex overflow-x-scroll scrollbar-hide space-x-8 py-4 px-2 snap-x snap-mandatory" id="services-scroller" role="region" aria-live="polite" tabindex="0">
+                        </div>
+                    <button type="button" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-st-secondary p-2 rounded-full text-st-white hover:bg-green-700 transition z-20 shadow-lg" id="prev-service" aria-label="Previous service">
+                        <i data-lucide="chevron-left" class="w-6 h-6" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-st-secondary p-2 rounded-full text-st-white hover:bg-green-700 transition z-20 shadow-lg" id="next-service" aria-label="Next service">
+                        <i data-lucide="chevron-right" class="w-6 h-6" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-st-dark-text text-st-light-bg py-12 md:py-16" role="contentinfo">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div>
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Hospitals Logo (White)" class="h-20 w-auto mb-4">
+                <p class="text-sm leading-relaxed mb-4">
+                    Sitara Hospitals: Inspired to Serve.
+                    Dedicated to providing compassionate, advanced healthcare in Karimnagar.
+                </p>
+                <address class="text-sm font-semibold not-italic">
+                    #3-1-267, Christian Colony, <br>
+                    Behind Dist. Govt. Hospital, <br>
+                    Karimnagar-505 001. (T.S.)
+                </address>
+            </div>
+
+            <nav aria-label="Quick Links">
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="../index.html#home" class="hover:text-st-white transition">Home</a></li>
+                    <li><a href="../index.html#about" class="hover:text-st-white transition">About Us</a></li>
+                    <li><a href="../index.html#why-choose-us" class="hover:text-st-white transition">Why Choose Us</a></li> 
+                    <li><a href="../index.html#services" class="hover:text-st-white transition">Services</a></li>
+                    <li><a href="../gallery.html" class="hover:text-st-white transition">Gallery</a></li>
+                    <li><a href="../index.html#doctors" class="hover:text-st-white transition">Doctors</a></li>
+                    <li><a href="../index.html#facilities" class="hover:text-st-white transition">Facilities</a></li>
+                </ul>
+            </nav>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Contact & Emergency</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center"><i data-lucide="siren" class="w-5 h-5 mr-3 text-st-primary" aria-hidden="true"></i> <span class="font-bold">24/7 Emergency:</span> <a href="tel:+918930104108" class="hover:text-st-white transition">8930 104 108</a></li>
+                    <li class="flex items-start"> 
+                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-st-primary flex-shrink-0 mt-0.5" aria-hidden="true"></i> 
+                        <div class="min-w-0"> <span class="font-bold block text-base">Email:</span>
+                            <a href="mailto:sitara.hospitals@gmail.com" class="block text-base break-all hover:text-st-white transition">sitara.hospitals@gmail.com</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Follow Us</h3>
+                <div class="mb-4">
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com/sitarahospitals" target="_blank" rel="noopener noreferrer" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Facebook">
+                            <i data-lucide="facebook" class="w-8 h-8" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://instagram.com/sitarahospitals" target="_blank" rel="noopener noreferrer" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Instagram">
+                            <i data-lucide="instagram" class="w-8 h-8" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/sitarahospitals" target="_blank" rel="noopener noreferrer" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on LinkedIn">
+                            <i data-lucide="linkedin" class="w-8 h-8" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://youtube.com/channel/..." target="_blank" rel="noopener noreferrer" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Subscribe to our YouTube channel">
+                            <i data-lucide="youtube" class="w-8 h-8" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-st-light-text">Stay connected for health tips and updates.</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 text-center">
+            <p class="text-sm text-st-light-text">
+                © <span id="current-year"></span> Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // UPDATED: The definitive list of 12 services with the correct file names
+        const specialties = [
+            { name: "Emergency & Critical Care", icon: "ambulance", link: "emergency-critical-care.html" },
+            { name: "General Medicine & Diabetology", icon: "stethoscope", link: "general-medicine-diabetology.html" },
+            { name: "General Surgery & Laparoscopic Surgery", icon: "scalpel", link: "general-surgery-laparoscopic-surgery.html" },
+            { name: "E.N.T. (Ear, Nose, and Throat)", icon: "ear", link: "ent-ear-nose-and-throat.html" },
+            { name: "Orthopedics & Joint Replacement (Computer Navigation)", icon: "bone", link: "orthopedics-joint-replacement-computer-navigation.html" },
+            { name: "Medical & Surgical Gastroenterology", icon: "thermometer-snowflake", link: "medical-surgical-gastroenterology.html" },
+            { name: "Urology & Nephrology", icon: "kidney", link: "urology-nephrology.html" },
+            { name: "Neurosurgery & Neurology", icon: "brain", link: "neurosurgery-neurology.html" },
+            { name: "Plastic & Reconstructive Surgery", icon: "bandage", link: "plastic-reconstructive-surgery.html" },
+            { name: "Surgical Oncology", icon: "shield-x", link: "surgical-oncology.html" },
+            { name: "Pulmonology", icon: "lungs", link: "pulmonology.html" },
+            { name: "Maxillofacial Surgery", icon: "chevrons-up-down", link: "maxillofacial-surgery.html" },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuIcon = mobileMenuButton.querySelector('i'); // Get the icon element
+            
+            mobileMenuButton.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+                
+                // Toggle icon
+                mobileMenuIcon.setAttribute('data-lucide', isHidden ? 'menu' : 'x');
+                lucide.createIcons(); // Re-render icon
+            });
+
+
+            // --- Services Dropdown Population (Desktop & Mobile) ---
+            const desktopDropdown = document.querySelector('.services-dropdown');
+            const mobileDropdown = document.getElementById('mobile-services-dropdown');
+            const mobileServicesToggle = document.getElementById('mobile-services-dropdown-toggle');
+            const mobileDropdownIcon = document.querySelector('.mobile-dropdown-icon');
+            const currentService = document.body.getAttribute('data-current-service'); // Get current service name
+
+            const createServiceLink = (service, isMobile = false) => {
+                const link = document.createElement('a');
+                link.href = service.link; // Link uses the corrected file path
+                
+                const isCurrent = service.name === currentService;
+
+                link.className = isMobile 
+                    // Mobile: Note the special class for the current page link (isCurrent)
+                    ? `mobile-nav-link block py-2 rounded transition font-medium ${isCurrent ? 'bg-st-secondary/70 text-st-white' : 'text-st-white hover:bg-st-secondary/50'}`
+                    // Desktop: Allows text to wrap
+                    : 'block px-4 py-2 text-sm hover:bg-st-primary hover:text-st-white transition duration-200 border-b border-st-white/10 last:border-b-0';
+                
+                link.innerHTML = `${service.name}`;
+                link.setAttribute('role', 'menuitem'); // Added ARIA role
+                return link;
+            };
+
+            // Clear existing content and populate dropdowns
+            if (desktopDropdown) desktopDropdown.innerHTML = '';
+            if (mobileDropdown) mobileDropdown.innerHTML = '';
+            
+            specialties.forEach(service => {
+                if(desktopDropdown) desktopDropdown.appendChild(createServiceLink(service));
+                if(mobileDropdown) mobileDropdown.appendChild(createServiceLink(service, true));
+            });
+
+            // Mobile Services Dropdown Toggle Logic
+            if (mobileServicesToggle && mobileDropdownIcon) {
+                mobileServicesToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isHidden = mobileDropdown.classList.toggle('hidden');
+                    // Update ARIA and rotation
+                    mobileServicesToggle.setAttribute('aria-expanded', !isHidden);
+                    mobileDropdownIcon.classList.toggle('rotate-180', !isHidden);
+                });
+            }
+
+
+            // --- Service Carousel Functionality ---
+            const scroller = document.getElementById('services-scroller');
+            const prevButton = document.getElementById('prev-service');
+            const nextButton = document.getElementById('next-service');
+            
+            const createCarouselCard = (service) => {
+                const card = document.createElement('a');
+                card.href = service.link; // Link uses the corrected file path
+                // Added role="group" for better carousel item accessibility
+                card.className = 'flex-shrink-0 w-64 md:w-80 snap-center bg-st-white p-6 rounded-xl shadow-lg border-b-4 border-st-secondary hover:shadow-xl hover:border-st-primary transition duration-300 transform hover:-translate-y-1';
+                card.setAttribute('role', 'group');
+                card.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <i data-lucide="${service.icon}" class="w-8 h-8 text-st-primary" aria-hidden="true"></i>
+                        <h3 class="text-xl font-bold text-st-dark-text">${service.name}</h3>
+                    </div>
+                    <p class="text-sm text-st-light-text mt-3">Expert care in ${service.name.toLowerCase().replace(/\s\(.*\)/, '').replace(/&/g, 'and')}.</p>
+                `;
+                return card;
+            };
+
+            // Populate the carousel
+            if(scroller) {
+                scroller.innerHTML = '';
+                // Filter out the current service from the carousel
+                const carouselSpecialties = specialties.filter(s => s.name !== currentService);
+
+                carouselSpecialties.forEach(service => {
+                    scroller.appendChild(createCarouselCard(service));
+                });
+            }
+            // Re-initialize Lucide icons after populating
+            lucide.createIcons();
+
+            // Carousel Scroll Logic
+            const scrollDistance = 300; 
+            
+            if (prevButton && scroller) prevButton.addEventListener('click', () => {
+                scroller.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+            });
+
+            if (nextButton && scroller) nextButton.addEventListener('click', () => {
+                scroller.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+            });
+
+            // Initial visibility of the service section (scroll reveal)
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            servicesSection.classList.remove('opacity-0', 'translate-y-20');
+                            observer.unobserve(servicesSection);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(servicesSection);
+            }
+        });
+    </script>
+    <a href="https://wa.me/918930104108" target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-green-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center" aria-label="Chat on WhatsApp">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-10 h-10 md:w-12 md:h-12">
+    </a>
+
+</body>
+</html>

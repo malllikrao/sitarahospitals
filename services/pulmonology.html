@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulmonology - Sitara Hospitals</title>
+
+    <link rel="icon" href="../assets/images/srisitaralogo.JPG" type="image/jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Sitara Hospitals Tailwind Config
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'st-primary': '#E34024',
+                        'st-secondary': '#129D5A',
+                        'st-light-bg': '#FDEEEB',
+                        'st-dark-text': '#1F2937',
+                        'st-light-text': '#6B7280',
+                        'st-white': '#FFFFFF',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' }, },
+                        pulseEffect: { '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }, '50%': { transform: 'scale(1.02)', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2)' }, },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'pulse-button': 'pulseEffect 2s infinite ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for the services-scroller */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Custom scrollbar for desktop services dropdown */
+        .services-dropdown {
+            max-height: 400px; /* Set a max height */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        .services-dropdown::-webkit-scrollbar {
+            width: 8px;
+        }
+        .services-dropdown::-webkit-scrollbar-thumb {
+            background-color: #0c7b48; /* Darker secondary color */
+            border-radius: 10px;
+        }
+        .services-dropdown::-webkit-scrollbar-track {
+            background: #129D5A; /* Secondary color */
+        }
+    </style>
+</head>
+<body class="font-['Inter'] antialiased text-st-dark-text bg-gray-50" data-current-service="Pulmonology">
+
+    <header class="bg-st-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-2">
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Hospitals Logo" class="h-20 w-auto"> 
+            </a>
+
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="../index.html#home" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Home</a>
+                <a href="../index.html#about" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">About</a>
+
+                <div class="relative group">
+                    <button class="text-st-primary font-bold text-lg font-medium transition duration-300 flex items-center focus:outline-none">
+                        Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown w-72 text-st-white max-h-96 overflow-y-auto">
+                        </div>
+                </div>
+
+                <a href="../gallery.html" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Gallery</a>
+                <a href="../index.html#doctors" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Doctors</a>
+                <a href="../index.html#facilities" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Facilities</a>
+
+                <a href="../index.html#appointments" class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg">
+                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                </a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-st-primary focus:outline-none">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg pb-4 hidden">
+            <div class="px-4 py-2">
+                <a href="../index.html#home" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Home</a>
+                <a href="../index.html#about" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">About</a>
+                
+                <a href="#" id="mobile-services-dropdown-toggle" class="block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium flex justify-between items-center">
+                    Services <i data-lucide="chevron-down" class="w-4 h-4 mobile-dropdown-icon transition-transform"></i>
+                </a>
+                <div id="mobile-services-dropdown" class="ml-4 pl-2 border-l border-st-white/50 hidden">
+                    </div>
+
+                <a href="../gallery.html" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Gallery</a>
+                <a href="../index.html#doctors" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Doctors</a>
+                <a href="../index.html#facilities" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Facilities</a>
+                
+                <a href="../index.html#appointments" class="mobile-nav-link block mt-4 text-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full hover:bg-green-700 transition">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="relative bg-gradient-to-r from-st-primary/80 to-st-secondary/60 text-st-white py-20 md:py-24" style="background-image: url('../assets/images/pulmonology-hero-bg.jpg'); background-size: cover; background-position: center; background-blend-mode: multiply;">
+            <div class="absolute inset-0 bg-st-dark-text opacity-50"></div>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <i data-lucide="lungs" class="w-12 h-12 text-st-white mx-auto mb-4 animate-fade-in-up"></i>
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">Pulmonology</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Specialized medical care for all disorders of the lungs and respiratory system, ensuring you breathe easy.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-st-white">
+            <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+                <div class="lg:col-span-2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-st-dark-text mb-6 border-l-4 border-st-primary pl-4">Advanced Respiratory Diagnosis and Management</h2>
+                    <div class="prose prose-lg max-w-none text-st-light-text leading-relaxed">
+                        <p>
+                            The Pulmonology department, guided by **Dr. G. Srinivas** (MD, DNB Pulmonology), provides expert diagnosis and management for a wide range of acute and chronic respiratory illnesses. We focus on enhancing lung function and improving the quality of life for patients with breathing difficulties.
+                        </p>
+
+                        <h3 class="text-2xl font-semibold text-st-dark-text mt-8 mb-4">Chronic Lung Disease Management</h3>
+                        <p>
+                            Effective, long-term management is crucial for chronic conditions. Our programs focus on education, medication management, and lifestyle modification.
+                        </p>
+                        <ul class="list-disc list-inside ml-4 text-st-dark-text font-medium space-y-2">
+                            <li>**COPD** (Chronic Obstructive Pulmonary Disease) and Emphysema management.</li>
+                            <li>**Bronchial Asthma:** Personalized treatment plans, inhaler technique training, and trigger identification.</li>
+                            <li>**Tuberculosis (TB):** Diagnosis and complete course management for all forms of TB.</li>
+                            <li>**Interstitial Lung Diseases (ILD):** Diagnosis and specialized care for complex fibrotic lung conditions.</li>
+                        </ul>
+
+                        <h3 class="text-2xl font-semibold text-st-dark-text mt-8 mb-4">Interventional Pulmonology & Diagnostics</h3>
+                        <p>
+                            We use advanced diagnostic tools to investigate the cause of respiratory symptoms and perform minimally invasive therapeutic procedures.
+                        </p>
+                        
+                        <div class="mt-4 p-5 bg-st-light-bg rounded-lg border-l-4 border-st-secondary">
+                            <h4 class="text-xl font-bold text-st-dark-text mb-2 flex items-center"><i data-lucide="microscope" class="w-6 h-6 mr-3 text-st-secondary"></i>Key Pulmonary Services:</h4>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 list-none p-0 m-0 text-st-dark-text">
+                                <li class="flex items-start"><i data-lucide="air-vent" class="w-4 h-4 text-st-primary mr-2 mt-1 flex-shrink-0"></i>**Spirometry/PFT** (Pulmonary Function Testing)</li>
+                                <li class="flex items-start"><i data-lucide="air-vent" class="w-4 h-4 text-st-primary mr-2 mt-1 flex-shrink-0"></i>**Bronchoscopy:** Diagnostic and therapeutic procedures.</li>
+                                <li class="flex items-start"><i data-lucide="air-vent" class="w-4 h-4 text-st-primary mr-2 mt-1 flex-shrink-0"></i>Pleural Fluid Aspiration/Biopsy</li>
+                                <li class="flex items-start"><i data-lucide="air-vent" class="w-4 h-4 text-st-primary mr-2 mt-1 flex-shrink-0"></i>**Sleep Studies** (Polysomnography) for Sleep Apnea</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="mt-8">
+                            Our team also manages acute respiratory failure, pneumonia, and provides critical care support including mechanical ventilation (NIV and invasive).
+                        </p>
+
+
+                        <div class="mt-10">
+                            <a href="../index.html#appointments" class="inline-flex items-center px-8 py-3 bg-st-primary text-st-white font-bold text-lg rounded-full shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105">
+                                Schedule a Lung Health Checkup <i data-lucide="calendar-plus" class="ml-3 w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="lg:col-span-1">
+                    <div class="bg-st-light-bg p-8 rounded-xl shadow-lg border-t-4 border-st-secondary sticky top-32">
+                        <h3 class="text-2xl font-bold text-st-dark-text mb-6 text-center">Our Consultant Pulmonologist</h3>
+                        <div class="text-center">
+                            <img src="../assets/images/placeholder-male.jpg" alt="Dr. G. Srinivas" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-st-white shadow-md">
+                            <h4 class="text-xl font-bold text-st-primary">Dr. G. Srinivas</h4>
+                            <p class="text-st-light-text font-medium">MD, DNB Pulmonology</p>
+                            <p class="text-st-secondary font-semibold mt-1">Specialist in Respiratory & Chest Medicine</p>
+                            <a href="../index.html#appointments" class="mt-6 w-full inline-flex items-center justify-center px-4 py-2 bg-st-secondary text-st-white font-semibold rounded-full hover:bg-green-700 transition">
+                                Request a Consult
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-st-primary/90 p-6 rounded-xl shadow-xl text-st-white text-center">
+                        <i data-lucide="activity" class="w-8 h-8 mx-auto text-st-white mb-3"></i>
+                        <h4 class="text-xl font-bold mb-2">Smoking Cessation Program</h4>
+                        <p class="text-base font-medium">Expert counseling and medical support to help you quit smoking and recover lung health.</p>
+                        <a href="../index.html#appointments" class="mt-3 inline-block text-st-secondary font-bold hover:underline transition">Learn More</a>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="services" class="py-16 md:py-24 bg-st-white opacity-0 translate-y-20 transition duration-700">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-st-dark-text mb-4">Other Centres of Excellence</h2>
+                <p class="text-lg text-center text-st-light-text max-w-3xl mx-auto mb-12">
+                    Browse our full range of specialties and advanced healthcare services.
+                </p>
+                <div class="relative">
+                    <div class="flex overflow-x-scroll scrollbar-hide space-x-8 py-4 px-2 snap-x snap-mandatory" id="services-scroller">
+                        </div>
+                    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-st-secondary p-2 rounded-full text-st-white hover:bg-green-700 transition z-20 shadow-lg" id="prev-service">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-st-secondary p-2 rounded-full text-st-white hover:bg-green-700 transition z-20 shadow-lg" id="next-service">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-st-dark-text text-st-light-bg py-12 md:py-16">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div>
+                <img src="../assets/images/srisitaralogo.JPG" alt="Sitara Logo" class="h-20 w-auto mb-4">
+                <p class="text-sm leading-relaxed mb-4">
+                    Sitara Hospitals: Inspired to Serve.
+                    Dedicated to providing compassionate, advanced healthcare in Karimnagar.
+                </p>
+                <p class="text-sm font-semibold">
+                    #3-1-267, Christian Colony, <br>
+                    Behind Dist. Govt. Hospital, <br>
+                    Karimnagar-505 001. (T.S.)
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="../index.html#home" class="hover:text-st-white transition">Home</a></li>
+                    <li><a href="../index.html#about" class="hover:text-st-white transition">About Us</a></li>
+                    <li><a href="../index.html#why-choose-us" class="hover:text-st-white transition">Why Choose Us</a></li> 
+                    <li><a href="../index.html#services" class="hover:text-st-white transition">Services</a></li>
+                    <li><a href="../gallery.html" class="hover:text-st-white transition">Gallery</a></li>
+                    <li><a href="../index.html#doctors" class="hover:text-st-white transition">Doctors</a></li>
+                    <li><a href="../index.html#facilities" class="hover:text-st-white transition">Facilities</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Contact & Emergency</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center"><i data-lucide="siren" class="w-5 h-5 mr-3 text-st-primary"></i> <span class="font-bold">24/7 Emergency:</span> 8930 104 108</li>
+                    <li class="flex items-start"> 
+                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-st-primary flex-shrink-0 mt-0.5"></i> 
+                        <div class="min-w-0"> <span class="font-bold block text-base">Email:</span>
+                            <span class="block text-base break-all">sitara.hospitals@gmail.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Follow Us</h3>
+                <div class="mb-4">
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Facebook">
+                            <i data-lucide="facebook" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://instagram.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Instagram">
+                            <i data-lucide="instagram" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on LinkedIn">
+                            <i data-lucide="linkedin" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://youtube.com/channel/..." target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Subscribe to our YouTube channel">
+                            <i data-lucide="youtube" class="w-8 h-8"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-st-light-text">Stay connected for health tips and updates.</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 text-center">
+            <p class="text-sm text-st-light-text">
+                © <span id="current-year"></span> Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+    <script>
+        // CORRECTED: Updated and complete specialties list with ONLY the 12 required services, correct file names, and Lucide icons
+        const specialties = [
+            { name: "Emergency & Critical Care", icon: "ambulance", link: "emergency-critical-care.html" },
+            { name: "General Medicine & Diabetology", icon: "stethoscope", link: "general-medicine-diabetology.html" },
+            { name: "General Surgery & Laparoscopic Surgery", icon: "scalpel", link: "general-surgery-laparoscopic-surgery.html" },
+            { name: "E.N.T. (Ear, Nose, and Throat)", icon: "ear", link: "ent-ear-nose-and-throat.html" },
+            { name: "Orthopedics & Joint Replacement (Computer Navigation)", icon: "bone", link: "orthopedics-joint-replacement-computer-navigation.html" },
+            { name: "Medical & Surgical Gastroenterology", icon: "thermometer-snowflake", link: "medical-surgical-gastroenterology.html" },
+            { name: "Urology & Nephrology", icon: "kidney", link: "urology-nephrology.html" },
+            { name: "Neurosurgery & Neurology", icon: "brain", link: "neurosurgery-neurology.html" },
+            { name: "Plastic & Reconstructive Surgery", icon: "bandage", link: "plastic-reconstructive-surgery.html" },
+            { name: "Surgical Oncology", icon: "shield-x", link: "surgical-oncology.html" },
+            { name: "Pulmonology", icon: "lungs", link: "pulmonology.html" },
+            { name: "Maxillofacial Surgery", icon: "chevrons-up-down", link: "maxillofacial-surgery.html" },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Get current service name from body data attribute
+            const currentServiceName = document.body.getAttribute('data-current-service');
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').setAttribute('data-lucide', mobileMenu.classList.contains('hidden') ? 'menu' : 'x');
+                lucide.createIcons(); 
+            });
+
+            // --- Services Dropdown Population (Desktop & Mobile) ---
+            const desktopDropdown = document.querySelector('.services-dropdown');
+            const mobileDropdown = document.getElementById('mobile-services-dropdown');
+            
+            const createServiceLink = (service, isMobile = false) => {
+                const link = document.createElement('a');
+                link.href = service.link; 
+                
+                let classes = 'block px-4 py-2 text-sm hover:bg-st-primary hover:text-st-white transition duration-200 border-b border-st-white/10 last:border-b-0';
+
+                if (isMobile) {
+                    classes = 'mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium';
+                    
+                    // Apply highlight style if this is the current page's service
+                    if (service.name === currentServiceName) {
+                        // Apply the green background, matching the visual request
+                        classes = 'mobile-nav-link block py-2 bg-st-secondary text-st-white rounded transition font-bold';
+                    }
+                }
+
+                link.className = classes;
+                link.innerHTML = `${service.name}`;
+                return link;
+            };
+
+            // Clear existing content and populate dropdowns
+            if (desktopDropdown) desktopDropdown.innerHTML = '';
+            if (mobileDropdown) mobileDropdown.innerHTML = '';
+            
+            specialties.forEach(service => {
+                if(desktopDropdown) desktopDropdown.appendChild(createServiceLink(service));
+                if(mobileDropdown) mobileDropdown.appendChild(createServiceLink(service, true));
+            });
+
+            // Mobile Services Dropdown Toggle - Open by default if a service is highlighted
+            const mobileServicesToggle = document.getElementById('mobile-services-dropdown-toggle');
+            const mobileDropdownIcon = document.querySelector('.mobile-dropdown-icon');
+            
+            if (mobileServicesToggle && mobileDropdownIcon) {
+                // If the current page is a service page, ensure the mobile dropdown starts open
+                if (currentServiceName) {
+                    mobileDropdown.classList.remove('hidden');
+                    mobileDropdownIcon.classList.add('rotate-180');
+                }
+
+                mobileServicesToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    mobileDropdown.classList.toggle('hidden');
+                    mobileDropdownIcon.classList.toggle('rotate-180');
+                });
+            }
+
+
+            // --- Service Carousel Functionality ---
+            const scroller = document.getElementById('services-scroller');
+            const prevButton = document.getElementById('prev-service');
+            const nextButton = document.getElementById('next-service');
+
+            const createCarouselCard = (service) => {
+                const card = document.createElement('a');
+                card.href = service.link;
+                card.className = 'flex-shrink-0 w-64 md:w-80 snap-center bg-st-white p-6 rounded-xl shadow-lg border-b-4 border-st-secondary hover:shadow-xl hover:border-st-primary transition duration-300 transform hover:-translate-y-1';
+                card.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <i data-lucide="${service.icon}" class="w-8 h-8 text-st-primary"></i>
+                        <h3 class="text-xl font-bold text-st-dark-text">${service.name}</h3>
+                    </div>
+                    <p class="text-sm text-st-light-text mt-3">Expert care in ${service.name.toLowerCase().replace(/\s\(.*\)/, '')}.</p>
+                `;
+                return card;
+            };
+
+            // Populate the carousel
+            if(scroller) {
+                scroller.innerHTML = '';
+                specialties.forEach(service => {
+                    // Exclude the current service from the "Other Centres of Excellence" carousel
+                    if (document.body.getAttribute('data-current-service') !== service.name) {
+                        scroller.appendChild(createCarouselCard(service));
+                    }
+                });
+            }
+            // Re-initialize Lucide icons after populating
+            lucide.createIcons();
+
+            // Carousel Scroll Logic
+            const scrollDistance = 300; 
+            
+            if (prevButton) prevButton.addEventListener('click', () => {
+                if (scroller) scroller.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+            });
+
+            if (nextButton) nextButton.addEventListener('click', () => {
+                if (scroller) scroller.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+            });
+
+            // Initial visibility of the service section (scroll reveal)
+            const servicesSection = document.getElementById('services');
+            if (servicesSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            servicesSection.classList.remove('opacity-0', 'translate-y-20');
+                            observer.unobserve(servicesSection);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(servicesSection);
+            }
+        });
+    </script>
+    <a href="https://wa.me/918930104108" target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-green-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center" aria-label="Chat on WhatsApp">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-10 h-10 md:w-12 md:h-12">
+    </a>
+
+</body>
+</html>

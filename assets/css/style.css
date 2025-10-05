@@ -1,0 +1,67 @@
+/* Custom Styles for Sitara Hospitals */
+
+/* 1. Hide Scrollbar for Scrollers (like services and doctors) */
+.scrollbar-hide {
+    -ms-overflow-style: none;   /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* 2. Dropdown Menu Enhancements */
+.services-dropdown a {
+    /* Styles for the desktop services dropdown links (inside the green box) */
+    display: block;
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    font-size: 0.875rem; /* text-sm */
+    transition-duration: 200ms;
+    transition-property: color, background-color; 
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    color: #FFFFFF; /* text-st-white */
+    background-color: transparent; /* Default bg */
+    text-align: left;
+}
+
+.services-dropdown a:hover {
+    background-color: #E34024; /* hover:bg-st-primary */ 
+    color: #FFFFFF;
+}
+
+#mobile-services-dropdown a {
+    /* Styles for the mobile services dropdown links */
+    display: block;
+    width: 100%; /* w-full */
+    text-align: center; /* text-center */
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    color: #FFFFFF; /* text-st-white */
+    transition-duration: 200ms; 
+    transition-property: background-color;
+}
+
+#mobile-services-dropdown a:hover {
+    background-color: #0E7F47; /* dark green hover */
+}
+
+/* 3. Scroll-Snap Enhancements for Sliders (Services and Doctors) */
+#services-scroller, #doctors-scroller {
+    /* This enables smooth, item-by-item manual scrolling */
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 1rem; 
+}
+
+/* Ensures each card is the target for the scroll snap */
+#services-scroller > div, #doctors-scroller > div {
+    scroll-snap-align: start; /* Snap to the left edge of the card */
+}
+
+
+/* 4. Testimonial Animation (Controlled by JS classes) */
+#testimonial-display {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+#testimonial-display.opacity-100 {
+    opacity: 1;
+}
