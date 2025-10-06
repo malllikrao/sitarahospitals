@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us |Sri Sitara Hospitals - Inspired to Serve in Karimnagar</title>
+    
+    <link rel="icon" href="assets/images/sri sitara orange ones.png" type="image/jpeg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // SITARA HOSPITALS Custom Colors (Orange/Red and Green)
+                        'st-primary': '#E34024', /* Sitara Orange/Red (Main Action/Contrast Color) */
+                        'st-secondary': '#129D5A', /* Sitara Green (Logo Star/Accent Color) */
+                        'st-light-bg': '#FDEEEB', /* Very Light Red/Pink for subtle backgrounds */
+                        'st-dark-text': '#1F2937', /* Dark Gray for main text */
+                        'st-light-text': '#6B7280', /* Lighter gray for secondary text */
+                        'st-white': '#FFFFFF',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }, },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' }, },
+                        pulseEffect: { '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }, '50%': { transform: 'scale(1.02)', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2)' }, },
+                        flipIn: { '0%': { transform: 'rotateY(90deg)', opacity: '0' }, '100%': { transform: 'rotateY(0deg)', opacity: '1' }, },
+                        slideInLeft: { '0%': { opacity: '0', transform: 'translateX(-100%)' }, '100%': { opacity: '1', transform: 'translateX(0)' }, },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'pulse-button': 'pulseEffect 2s infinite ease-in-out',
+                        'flip-in': 'flipIn 0.6s ease-out forwards',
+                        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-['Inter'] antialiased text-st-dark-text bg-gray-50">
+
+    <header class="bg-st-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="assets/images/sri sitara orange ones.png" alt="Sitara Hospitals Logo" class="h-20 w-auto"> 
+            </a>
+
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="index.html#home" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Home</a>
+                <a href="about.html" class="text-st-primary text-lg font-bold transition duration-300">About Us</a> <a href="index.html#why-choose-us" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Why Choose Us</a> 
+                
+                <div class="relative group">
+                    <button class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300 flex items-center focus:outline-none">
+                        Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown w-72 text-st-white">
+                        </div>
+                </div>
+
+                <a href="gallery.html" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Gallery</a>
+                <a href="index.html#doctors" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Doctors</a>
+                <a href="index.html#facilities" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Facilities</a>
+                
+                <a
+                    href="index.html#appointments"
+                    class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg"
+                >
+                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                </a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-st-primary focus:outline-none">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg pb-4 hidden">
+            <nav class="flex flex-col items-center space-y-4 pt-4">
+                <a href="index.html#home" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Home</a>
+                <a href="about.html" class="mobile-nav-link text-st-white font-bold bg-st-secondary text-lg transition duration-300 w-full text-center py-2">About Us</a> <a href="index.html#why-choose-us" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Why Choose Us</a> 
+                
+                <button id="mobile-services-dropdown-toggle" class="text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2 flex items-center justify-center">
+                    Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 mobile-dropdown-icon"></i>
+                </button>
+                <div id="mobile-services-dropdown" class="hidden flex flex-col items-center w-full">
+                    </div>
+
+                <a href="gallery.html" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Gallery</a>
+                <a href="index.html#doctors" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Doctors</a>
+                <a href="index.html#facilities" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Facilities</a>
+                
+                <a
+                    href="index.html#appointments"
+                    class="mobile-nav-link inline-flex items-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full shadow-md hover:bg-green-700 transition duration-300 w-11/12 justify-center text-lg"
+                >
+                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <main class="min-h-screen">
+        <section class="bg-st-light-bg py-16 md:py-24 border-b-4 border-st-primary">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-st-dark-text mb-4 animate-fade-in-up">
+                    <span class="text-st-primary">Our Story</span> of Service
+                </h1>
+                <p class="text-xl md:text-2xl text-st-light-text max-w-3xl mx-auto animate-fade-in-up delay-200">
+                    Dedicated to providing compassionate, advanced multi-speciality healthcare in the heart of Karimnagar.
+                </p>
+            </div>
+        </section>
+
+        <section id="founder-message" class="py-16 md:py-24 bg-st-white">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-st-dark-text mb-12">
+                    A Message from Our Founder & Director
+                </h2>
+                
+                <div class="bg-gray-50 p-8 md:p-12 rounded-3xl shadow-2xl border-t-8 border-st-secondary">
+                    <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-12">
+                        
+                        <div class="lg:w-1/3 flex justify-center mb-8 lg:mb-0">
+                            <img 
+                                src="assets/images/placeholder-doctor.jpg" 
+                                alt="Dr. Venkata Bharadwaj" 
+                                class="rounded-3xl shadow-2xl w-full max-w-sm h-auto object-cover object-center border-4 border-st-primary transition duration-300 hover:scale-[1.02]"
+                            >
+                        </div>
+
+                        <div class="lg:w-2/3 text-center lg:text-left">
+                            <h3 class="text-4xl font-extrabold text-st-secondary mb-2">Dr. Venkata Bharadwaj</h3>
+                            <p class="text-2xl text-st-primary font-bold mb-4">Consultant ENT, Head and Neck Surgeon (Director)</p>
+                            
+                            <div class="text-xl text-st-dark-text font-medium bg-st-light-bg p-4 rounded-lg inline-block mb-6">
+                                <ul class="list-none space-y-1 text-left">
+                                    <li class="font-bold text-st-dark-text flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 mr-2 text-st-secondary"></i> Qualifications: MBBS, <span class="text-st-primary">MS (ENT, HEAD AND NECK SURGERY)</span></li>
+                                    <li class="font-bold text-st-dark-text flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-2 text-st-secondary"></i> Experience: <span class="text-st-primary">11 Years</span></li>
+                                </ul>
+                            </div>
+
+                            <p class="text-lg text-st-dark-text leading-relaxed mb-4">
+                                "The launch of Sri Sitara Hospitals was born from a profound commitment to elevate healthcare standards in Karimnagar. Having spent over a decade practicing specialized <span class="text-st-primary font-semibold">ENT, Head and Neck Surgery</span>, I realized the immense need for a multi-speciality center that blends advanced surgical precision with foundational medical care—all delivered with the highest degree of ethical transparency and human warmth.
+                            </p>
+                            <p class="text-lg text-st-dark-text leading-relaxed italic mb-4 border-l-4 border-st-primary pl-4">
+                                My team and I are <span class="text-st-secondary font-semibold">'Inspired to Serve,'</span> dedicating ourselves to providing comprehensive care, from complex head and neck procedures to critical internal medicine management. We utilize cutting-edge technology and evidence-based protocols to ensure safety and superior clinical outcomes for every patient. We promise to be your trusted partner in health."
+                            </p>
+
+                            <a href="index.html#appointments" class="inline-flex items-center mt-6 px-6 py-3 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg">
+                                Schedule a Consultation <i data-lucide="user-plus" class="ml-2 w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="our-core-vision" class="py-16 md:py-24 bg-st-light-bg">
+            <div class="container mx-auto px-4 max-w-6xl">
+                 <h2 class="text-4xl md:text-5xl font-extrabold text-center text-st-dark-text mb-12">
+                    Our Core Vision
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+                    
+                    <div class="lg:col-span-1 space-y-8">
+                        
+                        <div class="bg-st-white p-8 rounded-xl shadow-lg border-l-8 border-st-secondary">
+                            <h3 class="text-3xl font-bold text-st-dark-text mb-4">
+                                Inspired to Serve.
+                            </h3>
+                            <p class="text-lg text-st-dark-text leading-relaxed">
+                                Since our inception, <span class="font-semibold">Sri Sitara Hospitals</span> has been driven by a singular mission: to make world-class medical expertise and technology accessible to the community in Karimnagar. Our commitment is rooted in <span class="text-st-primary font-semibold">trust, ethical practice, and genuine compassion</span>. We are built to deliver superior health outcomes.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-st-white p-6 rounded-xl shadow-xl border-l-8 border-st-primary transform hover:scale-[1.01] transition duration-300">
+                            <h3 class="text-2xl font-bold text-st-primary mb-3 flex items-center">
+                                <i data-lucide="target" class="w-6 h-6 mr-3"></i> Our Mission
+                            </h3>
+                            <p class="text-lg text-st-dark-text leading-relaxed">
+                                To be the definitive regional multi-speciality healthcare provider, setting new benchmarks for clinical excellence in <span class="font-semibold text-st-secondary">Orthopedics, ENT, Internal Medicine, and Critical Care</span>, delivered with affordability and unparalleled empathy.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-1 space-y-6">
+                         <h3 class="text-3xl font-bold text-st-dark-text mb-4 border-b pb-2 border-st-primary">
+                            Core Values
+                        </h3>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="p-5 bg-st-white rounded-lg shadow-md border-t-4 border-st-secondary hover:shadow-xl transition duration-300 h-full">
+                                <h4 class="text-xl font-bold text-st-secondary mb-2 flex items-center"><i data-lucide="heart" class="w-5 h-5 mr-2"></i> Compassion</h4>
+                                <p class="text-base text-st-light-text">Putting the patient's comfort and emotional well-being at the core of every treatment decision, treating every individual with dignity and respect.</p>
+                            </div>
+                            <div class="p-5 bg-st-white rounded-lg shadow-md border-t-4 border-st-primary hover:shadow-xl transition duration-300 h-full">
+                                <h4 class="text-xl font-bold text-st-primary mb-2 flex items-center"><i data-lucide="zap" class="w-5 h-5 mr-2"></i> Excellence</h4>
+                                <p class="text-base text-st-light-text">Utilizing advanced technology, surgical expertise, and continuous medical education to achieve superior clinical outcomes and care quality.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-st-dark-text text-st-light-bg py-12 md:py-16">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div>
+                <img src="assets/images/sri sitara orange ones.png" alt="Sitara Logo" class="h-20 w-auto mb-4">
+                <p class="text-sm leading-relaxed mb-4">
+                    Sri Sitara Hospitals: Inspired to Serve.
+                    Dedicated to providing compassionate, advanced healthcare in Karimnagar.
+                </p>
+                <p class="text-sm font-semibold">
+                    #3-1-267, Christian Colony, <br>
+                    Behind Dist. Govt. Hospital, <br>
+                    Karimnagar-505 001. (T.S.)
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="index.html#home" class="hover:text-st-white transition">Home</a></li>
+                    <li><a href="about.html" class="hover:text-st-white transition">About Us</a></li>
+                    <li><a href="index.html#why-choose-us" class="hover:text-st-white transition">Why Choose Us</a></li> 
+                    <li><a href="index.html#services" class="hover:text-st-white transition">Services</a></li>
+                    <li><a href="gallery.html" class="hover:text-st-white transition">Gallery</a></li>
+                    <li><a href="index.html#doctors" class="hover:text-st-white transition">Doctors</a></li>
+                    <li><a href="index.html#facilities" class="hover:text-st-white transition">Facilities</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Contact & Emergency</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center"><i data-lucide="siren" class="w-5 h-5 mr-3 text-st-primary"></i> <span class="font-bold">24/7 Emergency:</span> 8930 104 108</li>
+                    <li class="flex items-start"> 
+                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-st-primary flex-shrink-0 mt-0.5"></i> 
+                        <div class="min-w-0"> <span class="font-bold block text-base">Email:</span>
+                            <span class="block text-base break-all">srisitarahospitalsknr@gmail.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-st-secondary">Follow Us</h3>
+                <div class="mb-4">
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Facebook">
+                            <i data-lucide="facebook" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://instagram.com/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on Instagram">
+                            <i data-lucide="instagram" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/sitarahospitals" target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Follow us on LinkedIn">
+                            <i data-lucide="linkedin" class="w-8 h-8"></i>
+                        </a>
+                        <a href="https://youtube.com/channel/..." target="_blank" class="text-st-white hover:text-st-primary transition transform hover:scale-110" aria-label="Subscribe to our YouTube channel">
+                            <i data-lucide="youtube" class="w-8 h-8"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="mt-4 text-sm text-st-light-text">Stay connected for health tips and updates.</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 text-center">
+            <p class="text-sm text-st-light-text">
+                &copy; <span id="current-year"></span>Sri Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        // Initialize lucide icons
+        lucide.createIcons();
+    </script>
+    <a href="https://wa.me/918930104108" target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-green-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center" aria-label="Chat on WhatsApp">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-10 h-10 md:w-12 md:h-12">
+    </a>
+    
+</body>
+</html>
