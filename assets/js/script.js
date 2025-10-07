@@ -1,20 +1,3 @@
-/*
- * SCRIPT.JS - Dynamic content and functionality for the Sitara Hospital website.
- * Features: Data rendering, menu handling, hero slider, testimonials, and doctor auto-scroll.
- *
- * FIXES APPLIED:
- * 1. Implemented robust path generation to correctly link to service pages from both index.html and services/*.html.
- * 2. Ensured mobile menu dropdown logic is clean and works across all pages.
- * 3. FIX: Updated mobile menu link-closing logic to be INSTANTANEOUS, fixing the mobile "auto-touching" issue.
- * 4. CRITICAL FIX: The following services, which were not on the Doctor's Directory Board (sitara5.jpg), have been removed from the data arrays:
- * - Gynaecology & Obstetrics
- * - Poly Trauma
- * - Cardiology
- * - Vascular Surgery
- *
- * 5. NEW: Implemented fetch API logic in setupAppointmentForm to send data to Make.com webhook.
- */
-
 /* Data Arrays - UPDATED based on brochure and directory board image data */
 
 const SPECIALITIES = [
@@ -105,25 +88,24 @@ const SERVICES = SPECIALITIES.map(name => {
 const DOCTORS = [
     { name: "Dr. Venkata Bharadwaj", specialty: "General Medicine", degree: "MBBS, DNB General Medicine", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Jadhav Rajkumar", specialty: "ENT (Ear, Nose, Throat)", degree: "MBBS, MS ENT", image: "assets/images/placeholder-male.jpg" },
-    { name: "Dr. V. Santhosh Kumar", specialty: "General & Laparoscopic Surgery", degree: "MBBS, MS General Surgery", image: "assets/images/placeholder-male.jpg" },
+    { name: "Dr. sandeep", specialty: "General & Laparoscopic Surgery", degree: "MBBS, MS General Surgery", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Sudheer Dwarak", specialty: "Orthopedics", degree: "Dip. in Ortho, DNB Ortho (Computer Navigation Specialist)", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Nataraj Goud", specialty: "Gastroenterology", degree: "MBBS, MD, DNB (Med. Gastroenterology)", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ch. Srikanth", specialty: "Anesthesia & Critical Care", degree: "MBBS, MD Anesthesia", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. R. Nishanth", specialty: "Maxillofacial Surgeon", degree: "MDS, Fellow in Maxillofacial Surgery", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ch. Praveen Kumar", specialty: "Pulmonologist", degree: "MBBS MD (Pulmonology)", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Vamsichandra .B", specialty: "Urologist", degree: "MCh, MS, DNB Urology", image: "assets/images/placeholder-male.jpg" },
-    { name: "Dr. J. Srinivas", specialty: "Neuro Surgeon", degree: "MS, MCh Consultant Neuro-Surgeon", image: "assets/images/placeholder-male.jpg" },
+    { name: "Dr. deepak", specialty: "Neuro Surgeon", degree: "MS, MCh Consultant Neuro-Surgeon", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Prashanth Kumar", specialty: "Surgical Oncologist", degree: "MS, MCh Consultant Surgical Oncologist", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ashok Reddy", specialty: "Plastic Surgeon", degree: "MCh Consultant Plastic Surgeon", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Divya Reddy B.", specialty: "Nephrology", degree: "MBBS, DNB General Medicine (Consultant Nephrologist)", image: "assets/images/placeholder-female.jpg" },
-    { name: "Dr. Ajaykrishna", specialty: "Medical Superintendent", degree: "MBBS, DNB", image: "assets/images/placeholder-male.jpg" },
+    { name: "Dr. mahesh", specialty: "Medical Superintendent", degree: "MBBS, DNB", image: "assets/images/placeholder-male.jpg" },
 ];
 
 const TESTIMONIALS = [
     { quote: "The best orthopedic care I've ever received. The computer navigation joint replacement was flawless, and the staff's kindness made recovery easy.", name: "G. Mahesh Babu", location: "Warangal" },
     { quote: "Outstanding Critical Care. The doctors and nurses managed a severe emergency with professionalism and compassion. True heroes!", name: "K. Sowmya", location: "Karimnagar" },
     { quote: "Very professional and patient-friendly. Dr. Kiran's guidance for my stomach issue was clear and effective. Highly recommend Sitara for GI problems.", name: "R. Srinivas Rao", location: "Peddapally" },
-    // Removed the 'Cardiology' testimonial for consistency with the service list update
     { quote: "The hospital staff was highly dedicated and the facilities were top-notch. I felt well cared for during my entire recovery.", name: "V. Lakshmi", location: "Mancherial" },
 ];
 
@@ -133,7 +115,6 @@ const FACILITIES = [
     { name: "Digital C-ARM & X-Ray", icon: "scan-line", description: "Real-time intraoperative imaging and high-resolution digital X-ray services." },
     { name: "Modular Operation Theatres", icon: "maximize", description: "State-of-the-art sterile surgical environments with laminar flow." },
     { name: "2D ECHO & Color Doppler", icon: "heart-handshake", description: "Advanced cardiovascular and vascular diagnostic imaging services." },
-    // Removed the 'Poly Trauma Management' facility for consistency with the service list update
     { name: "24 Hrs Ambulance", icon: "bus-front", description: "Quick access and transport for emergency patients." },
     { name: "Multipara Monitors", icon: "gauge", description: "Continuous patient physiological monitoring across all wards." }
 ];
@@ -186,8 +167,6 @@ function getRelativePath(targetPage) {
     // If the target is another service page (which is in the services folder)
     if (targetPage.startsWith('services/')) {
         // If we're already on a service page, we just need './' or no prefix at all
-        // to stay in the same folder. However, for robustness, we use the full path
-        // relative to the root and let the prefix fix it.
         if (isServicePage) {
             // Remove the 'services/' from the front if on a service page
             return targetPage.replace('services/', ''); 
@@ -260,7 +239,8 @@ function renderSpecialties() {
         desktopDropdownHtml += `<a href="${servicePageUrl}" class="block px-4 py-2 text-st-dark-text hover:bg-st-primary hover:text-st-white transition duration-200">${specialty}</a>`;
 
         // Mobile Dropdown Links (White text for the red menu background)
-        mobileDropdownHtml += `<a href="${servicePageUrl}" class="block py-2 pl-4 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">${specialty}</a>`;
+        // NOTE: These links are also selected by navLinks in setupMobileMenu
+        mobileDropdownHtml += `<a href="${servicePageUrl}" class="mobile-nav-link block py-2 pl-4 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">${specialty}</a>`;
 
         // Select Options (Appointment form)
         selectOptionsHtml += `<option value="${specialty}">${specialty}</option>`;
@@ -465,9 +445,13 @@ function setupScrollNavigation() {
     document.getElementById('next-testimonial')?.addEventListener('click', () => updateTestimonial('next'));
 }
 
+// --------------------------------------------------------------------------------------------------
+// Mobile Menu Fix (Touch Bleed/Auto-Touch)
+// --------------------------------------------------------------------------------------------------
+
 /**
  * UPDATED FIX: Mobile menu logic to ensure the menu closes INSTANTLY on link click, 
- * preventing the touch event from "bleeding" through to elements underneath.
+ * AND prevents accidental taps when opening the menu.
  */
 function setupMobileMenu() {
     const menuButton = document.getElementById('mobile-menu-button');
@@ -478,45 +462,163 @@ function setupMobileMenu() {
     // Query all links inside the mobile menu for closing logic
     const navLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
 
-    // 1. Main Menu Toggle Logic
+    // 1. Main Menu Toggle Logic (CRITICAL FIX ADDED HERE)
     if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', () => {
+        menuButton.addEventListener('click', (e) => {
+            // CRITICAL FIX: Stop the click event from registering on elements below 
+            // the button, which prevents the auto-touch/navigation bug upon opening.
+            e.preventDefault(); 
+            e.stopPropagation(); 
+
             mobileMenu.classList.toggle('hidden');
             // Ensure dropdown is hidden when the main menu is closed
-            if (mobileMenu.classList.contains('hidden') && serviceDropdown && !serviceDropdown.classList.contains('hidden')) {
-                serviceDropdown.classList.add('hidden');
+            if (mobileMenu.classList.contains('hidden') && serviceDropdown && serviceDropdown.classList.contains('block')) {
+                // FIX: Use 'max-h-0' instead of 'hidden' to smoothly collapse the dropdown
+                serviceDropdown.classList.remove('block', 'max-h-60');
+                serviceDropdown.classList.add('hidden', 'max-h-0');
+
                 const icon = serviceToggle.querySelector('.mobile-dropdown-icon');
                 if(icon) icon.classList.remove('rotate-180');
             }
         });
     }
 
-    // 2. Specialty Dropdown Toggle Logic
+    // 2. Specialty Dropdown Toggle Logic (UPDATED FOR SCROLLING/HEIGHT CLASSES)
     if (serviceToggle && serviceDropdown) {
         serviceToggle.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent default link behavior
-            serviceDropdown.classList.toggle('hidden');
+            e.stopPropagation(); // Prevent touch bleed/propogation
+
+            const isHidden = serviceDropdown.classList.contains('hidden');
+            
+            if (isHidden) {
+                // Show/Expand
+                serviceDropdown.classList.remove('hidden', 'max-h-0');
+                // Use a short timeout to trigger the CSS transition
+                setTimeout(() => {
+                    serviceDropdown.classList.add('block', 'max-h-60');
+                }, 10);
+                
+            } else {
+                // Hide/Collapse
+                serviceDropdown.classList.remove('block', 'max-h-60');
+                serviceDropdown.classList.add('max-h-0');
+                // Use a timeout matching the transition duration (500ms) to re-add 'hidden'
+                setTimeout(() => {
+                    serviceDropdown.classList.add('hidden');
+                }, 500); 
+            }
+
             const icon = serviceToggle.querySelector('.mobile-dropdown-icon');
             if(icon) icon.classList.toggle('rotate-180');
         });
     }
 
-    // 3. Close menu INSTANTLY on any link click
+    // 3. Close menu INSTANTLY on any link click (The previous, necessary fix)
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             // Close the main menu instantly
             if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.add('hidden');
             }
-            // Close the specialty dropdown if it's open
+            // Close the specialty dropdown if it's open (use the transition collapse logic)
             if(serviceDropdown && !serviceDropdown.classList.contains('hidden')) {
-                serviceDropdown.classList.add('hidden');
+                serviceDropdown.classList.remove('block', 'max-h-60');
+                serviceDropdown.classList.add('max-h-0');
+                 setTimeout(() => {
+                    serviceDropdown.classList.add('hidden');
+                }, 500); 
+                
                 const icon = serviceToggle?.querySelector('.mobile-dropdown-icon');
                 if(icon) icon.classList.remove('rotate-180');
             }
         });
     });
 }
+
+// --------------------------------------------------------------------------------------------------
+// Hero Slider Fix (Image Stacking)
+// --------------------------------------------------------------------------------------------------
+
+/* Hero Image Slider */
+
+function setupHeroSlider() {
+    const slider = document.getElementById('hero-slider');
+    // Exit if element doesn't exist (i.e., we are on a service page)
+    if (!slider) return;
+
+    let currentImageIndex = 0;
+    const transitionDuration = 1000; // Match CSS transition duration
+
+    // Use a specific class for slide images to reliably target them
+    const SLIDE_CLASS = 'hero-slide'; 
+
+    // Function to create and insert a slide image
+    const createSlideImage = (index, isInitial) => {
+        const imageUrl = getRelativePath(HERO_IMAGES[index]);
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        
+        let classList = `absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${SLIDE_CLASS}`;
+        
+        if (isInitial) {
+            classList += ' opacity-100';
+        } else {
+            classList += ' opacity-0';
+        }
+
+        img.className = classList;
+        img.style.zIndex = '0';
+        
+        // Find the overlay (assuming it has a specific class like 'hero-overlay' or is the non-image child)
+        const overlay = slider.querySelector(':not(img):not(.hero-slide)'); 
+        
+        if (overlay) {
+             slider.insertBefore(img, overlay);
+        } else {
+             // Fallback: prepend if overlay isn't found
+             slider.prepend(img);
+        }
+        
+        return img;
+    };
+
+    const updateSlider = () => {
+        // CRITICAL FIX: Find the image that is currently VISIBLE
+        const currentImg = slider.querySelector(`.${SLIDE_CLASS}.opacity-100`);
+        const nextImageIndex = (currentImageIndex + 1) % HERO_IMAGES.length;
+
+        // 1. Create and insert the next image (it starts with opacity-0)
+        const nextImg = createSlideImage(nextImageIndex, false);
+
+        // 2. Fade the new image in
+        setTimeout(() => {
+            nextImg.classList.remove('opacity-0');
+            nextImg.classList.add('opacity-100');
+        }, 50); 
+
+        // 3. Fade the old image out and remove it
+        if (currentImg) {
+            currentImg.classList.remove('opacity-100');
+            currentImg.classList.add('opacity-0');
+
+            // Remove the old image after its transition is complete
+            setTimeout(() => {
+                currentImg.remove();
+            }, transitionDuration + 50); 
+        }
+
+        // 4. Update index for the next cycle
+        currentImageIndex = nextImageIndex;
+    };
+
+    // Initial load: Create and insert the first image
+    createSlideImage(0, true);
+
+    // Set the interval for the slide change
+    setInterval(updateSlider, 6000); // Change image every 6 seconds
+}
+
 
 /**
  * UPDATED: Handles form submission, sending data to Make.com webhook.
@@ -677,64 +779,10 @@ function setupScrollAnimation() {
             }
         });
     } catch (e) {
-        // console.error("Scroll Animation setup error (likely on a page missing main sections):", e);
-        // Safely ignore on pages like services/cardiology.html
+        // Safe exit in case IntersectionObserver or other elements fail
+        console.error("Scroll animation setup failed:", e);
     }
 }
-
-
-/* Hero Image Slider */
-
-function setupHeroSlider() {
-    const slider = document.getElementById('hero-slider');
-    const overlay = document.querySelector('#home .absolute:nth-child(2)');
-    // Exit if elements don't exist (i.e., we are on a service page)
-    if (!slider || !overlay) return; 
-
-    let currentImageIndex = 0;
-
-    const updateSlider = () => {
-        const currentImg = slider.querySelector('img');
-        const nextImageIndex = (currentImageIndex + 1) % HERO_IMAGES.length;
-        const nextImageUrl = getRelativePath(HERO_IMAGES[nextImageIndex]); // FIX: Apply relative path
-
-        // 1. Create the new image element (starts at 0 opacity)
-        const nextImg = document.createElement('img');
-        nextImg.src = nextImageUrl;
-        nextImg.className = 'absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out opacity-0';
-        nextImg.style.zIndex = '0';
-
-        // 2. Insert the new image BEFORE the overlay (and below the content)
-        slider.insertBefore(nextImg, overlay);
-
-        // 3. If an old image exists, fade it out and remove it
-        if (currentImg) {
-            currentImg.classList.remove('opacity-100');
-            currentImg.classList.add('opacity-0');
-            setTimeout(() => currentImg.remove(), 1000);
-        }
-
-        // 4. Fade the new image in
-        setTimeout(() => {
-            nextImg.classList.remove('opacity-0');
-            nextImg.classList.add('opacity-100');
-        }, 100);
-
-        // 5. Update index for the next cycle
-        currentImageIndex = nextImageIndex;
-    };
-
-    // Initial load - insert the first image
-    const initialImg = document.createElement('img');
-    initialImg.src = getRelativePath(HERO_IMAGES[0]); // FIX: Apply relative path
-    initialImg.className = 'absolute inset-0 w-full h-full object-cover opacity-100';
-    initialImg.style.zIndex = '0';
-    slider.prepend(initialImg);
-
-    // Set the interval for the slide change
-    setInterval(updateSlider, 6000); // Change image every 6 seconds
-}
-
 
 /* Initialization */
 
@@ -742,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Setup essential UI elements (must run on ALL pages)
     renderSpecialties(); // Creates service links (crucial for header on all pages)
     setupMobileMenu(); 
-    setupAppointmentForm(); // <--- UPDATED FUNCTION HERE
+    setupAppointmentForm();
     lucide.createIcons(); // Initialize all icons on the page
 
     // 2. Setup content that only runs on the main index.html page (or any page containing the element ID)

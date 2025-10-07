@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us |Sri Sitara Hospitals - Inspired to Serve in Karimnagar</title>
+    <title>About Us | Sri Sitara Hospitals - Inspired to Serve in Karimnagar</title>
     
     <link rel="icon" href="assets/images/sri sitara orange ones.png" type="image/jpeg">
     
@@ -42,6 +42,13 @@
             }
         }
     </script>
+    <style>
+        /* Ensures the mobile menu content itself is scrollable if it exceeds the screen height */
+        .mobile-menu-scrollable {
+            max-height: calc(100vh - 88px); /* 100vh minus header height */
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body class="font-['Inter'] antialiased text-st-dark-text bg-gray-50">
 
@@ -53,13 +60,14 @@
 
             <nav class="hidden md:flex space-x-8 items-center">
                 <a href="index.html#home" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Home</a>
-                <a href="about.html" class="text-st-primary text-lg font-bold transition duration-300">About Us</a> <a href="index.html#why-choose-us" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Why Choose Us</a> 
+                <a href="about.html" class="text-st-primary text-lg font-bold transition duration-300">About Us</a>
+                <a href="index.html#why-choose-us" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Why Choose Us</a>
                 
                 <div class="relative group">
                     <button class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300 flex items-center focus:outline-none">
                         Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180"></i>
                     </button>
-                    <div class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown w-72 text-st-white">
+                    <div class="absolute hidden group-hover:block bg-st-secondary shadow-xl rounded-md py-2 z-40 services-dropdown w-80 max-h-96 overflow-y-auto text-st-white">
                         </div>
                 </div>
 
@@ -67,45 +75,42 @@
                 <a href="index.html#doctors" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Doctors</a>
                 <a href="index.html#facilities" class="text-st-light-text hover:text-st-primary text-lg font-medium transition duration-300">Facilities</a>
                 
-                <a
-                    href="index.html#appointments"
-                    class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg"
-                >
+                <a href="index.html#appointments" class="inline-flex items-center px-4 py-2 bg-st-primary text-st-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 animate-pulse-button text-lg">
                     Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
                 </a>
             </nav>
 
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-st-primary focus:outline-none">
+                <button id="mobile-menu-button" class="text-st-primary focus:outline-none" aria-label="Toggle mobile menu">
                     <i data-lucide="menu" class="w-8 h-8"></i>
                 </button>
             </div>
         </div>
 
-        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg pb-4 hidden">
-            <nav class="flex flex-col items-center space-y-4 pt-4">
-                <a href="index.html#home" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Home</a>
-                <a href="about.html" class="mobile-nav-link text-st-white font-bold bg-st-secondary text-lg transition duration-300 w-full text-center py-2">About Us</a> <a href="index.html#why-choose-us" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Why Choose Us</a> 
+        <div id="mobile-menu" class="md:hidden bg-st-primary shadow-lg hidden">
+            <div class="px-4 py-2 mobile-menu-scrollable">
+                <a href="index.html#home" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Home</a>
+                <a href="about.html" class="mobile-nav-link block py-2 bg-st-secondary/70 text-st-white rounded transition font-bold">About Us</a>
+                <a href="index.html#why-choose-us" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Why Choose Us</a>
                 
-                <button id="mobile-services-dropdown-toggle" class="text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2 flex items-center justify-center">
-                    Services <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-300 mobile-dropdown-icon"></i>
-                </button>
-                <div id="mobile-services-dropdown" class="hidden flex flex-col items-center w-full">
+                <a href="#" id="mobile-services-dropdown-toggle" class="block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium flex justify-between items-center">
+                    Services <i data-lucide="chevron-down" class="w-4 h-4 mobile-dropdown-icon transition-transform"></i>
+                </a>
+                
+                <div id="mobile-services-dropdown" class="ml-4 pl-2 border-l border-st-white/50 hidden">
                     </div>
 
-                <a href="gallery.html" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Gallery</a>
-                <a href="index.html#doctors" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Doctors</a>
-                <a href="index.html#facilities" class="mobile-nav-link text-st-white hover:bg-st-secondary text-lg font-medium transition duration-300 w-full text-center py-2">Facilities</a>
+                <a href="gallery.html" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Gallery</a>
+                <a href="index.html#doctors" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Doctors</a>
+                <a href="index.html#facilities" class="mobile-nav-link block py-2 text-st-white hover:bg-st-secondary/50 rounded transition font-medium">Facilities</a>
                 
-                <a
-                    href="index.html#appointments"
-                    class="mobile-nav-link inline-flex items-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full shadow-md hover:bg-green-700 transition duration-300 w-11/12 justify-center text-lg"
-                >
-                    Book Appointment <i data-lucide="calendar-days" class="ml-2 w-5 h-5"></i>
+                <a href="index.html#appointments" class="mobile-nav-link block mt-4 text-center px-4 py-2 bg-st-secondary text-st-white font-bold rounded-full hover:bg-green-700 transition">
+                    Book Appointment
                 </a>
-            </nav>
+            </div>
         </div>
     </header>
+
     <main class="min-h-screen">
         <section class="bg-st-light-bg py-16 md:py-24 border-b-4 border-st-primary">
             <div class="container mx-auto px-4 text-center">
@@ -136,7 +141,7 @@
                         </div>
 
                         <div class="lg:w-2/3 text-center lg:text-left">
-                            <h3 class="text-4xl font-extrabold text-st-secondary mb-2">Dr. Venkata Bharadwaj</h3>
+                            <h3 class="text-4xl font-extrabold text-st-secondary mb-2">Dr. Jadhav Rajkumar</h3>
                             <p class="text-2xl text-st-primary font-bold mb-4">Consultant ENT, Head and Neck Surgeon (Director)</p>
                             
                             <div class="text-xl text-st-dark-text font-medium bg-st-light-bg p-4 rounded-lg inline-block mb-6">
@@ -278,18 +283,84 @@
         </div>
         <div class="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 text-center">
             <p class="text-sm text-st-light-text">
-                &copy; <span id="current-year"></span>Sri Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
+                &copy; <span id="current-year"></span> Sri Sitara Hospitals. All rights reserved. | <a href="#" class="hover:text-st-primary transition">Privacy Policy</a>
             </p>
         </div>
     </footer>
 
-    <script src="assets/js/script.js"></script>
     <script>
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        // Initialize lucide icons
-        lucide.createIcons();
+        // --- SPECIALTIES LIST (with corrected paths for the root folder) ---
+        const specialties = [
+            { name: "Emergency & Critical Care", icon: "ambulance", link: "services/emergency-critical-care.html" },
+            { name: "General Medicine & Diabetology", icon: "stethoscope", link: "services/general-medicine-diabetology.html" },
+            { name: "General Surgery & Laparoscopic Surgery", icon: "scalpel", link: "services/general-surgery-laparoscopic-surgery.html" },
+            { name: "E.N.T. (Ear, Nose, and Throat)", icon: "ear", link: "services/ent-ear-nose-and-throat.html" },
+            { name: "Orthopedics & Joint Replacement (Computer Navigation)", icon: "bone", link: "services/orthopedics-joint-replacement-computer-navigation.html" },
+            { name: "Medical & Surgical Gastroenterology", icon: "thermometer-snowflake", link: "services/medical-surgical-gastroenterology.html" },
+            { name: "Urology & Nephrology", icon: "kidney", link: "services/urology-nephrology.html" },
+            { name: "Neurosurgery & Neurology", icon: "brain", link: "services/neurosurgery-neurology.html" },
+            { name: "Plastic & Reconstructive Surgery", icon: "bandage", link: "services/plastic-reconstructive-surgery.html" },
+            { name: "Surgical Oncology", icon: "shield-x", link: "services/surgical-oncology.html" },
+            { name: "Pulmonology", icon: "lungs", link: "services/pulmonology.html" },
+            { name: "Maxillofacial Surgery", icon: "chevrons-up-down", link: "services/maxillofacial-surgery.html" },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('i').setAttribute('data-lucide', mobileMenu.classList.contains('hidden') ? 'menu' : 'x');
+                lucide.createIcons(); 
+            });
+
+
+            // --- Services Dropdown Population (Desktop & Mobile) ---
+            const desktopDropdown = document.querySelector('.services-dropdown');
+            const mobileDropdown = document.getElementById('mobile-services-dropdown');
+
+            const createServiceLink = (service, isMobile = false) => {
+                const link = document.createElement('a');
+                link.href = service.link;
+                
+                link.className = isMobile 
+                    ? `mobile-nav-link block py-2 rounded transition font-medium text-st-white hover:bg-st-secondary/50`
+                    : 'block px-4 py-2 text-sm hover:bg-st-primary hover:text-st-white transition duration-200 border-b border-st-white/10 last:border-b-0'; 
+
+                link.innerHTML = `${service.name}`;
+                return link;
+            };
+
+            if (desktopDropdown) desktopDropdown.innerHTML = '';
+            if (mobileDropdown) mobileDropdown.innerHTML = '';
+            
+            specialties.forEach(service => {
+                if(desktopDropdown) desktopDropdown.appendChild(createServiceLink(service));
+                if(mobileDropdown) mobileDropdown.appendChild(createServiceLink(service, true));
+            });
+
+            // Mobile Services Dropdown Toggle Logic
+            const mobileServicesToggle = document.getElementById('mobile-services-dropdown-toggle');
+            const mobileDropdownIcon = document.querySelector('.mobile-dropdown-icon');
+            if (mobileServicesToggle && mobileDropdownIcon) {
+                mobileServicesToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    mobileDropdown.classList.toggle('hidden');
+                    mobileDropdownIcon.classList.toggle('rotate-180');
+                });
+            }
+            lucide.createIcons();
+        });
     </script>
+    
     <a href="https://wa.me/918930104108" target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-green-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center" aria-label="Chat on WhatsApp">
         <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" class="w-10 h-10 md:w-12 md:h-12">
     </a>
