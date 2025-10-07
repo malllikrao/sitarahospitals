@@ -88,18 +88,18 @@ const SERVICES = SPECIALITIES.map(name => {
 const DOCTORS = [
     { name: "Dr. Venkata Bharadwaj", specialty: "General Medicine", degree: "MBBS, DNB General Medicine", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Jadhav Rajkumar", specialty: "ENT (Ear, Nose, Throat)", degree: "MBBS, MS ENT", image: "assets/images/placeholder-male.jpg" },
-    { name: "Dr. sandeep", specialty: "General & Laparoscopic Surgery", degree: "MBBS, MS General Surgery", image: "assets/images/placeholder-male.jpg" },
+    { name: "Dr. M. Rajkumar", specialty: "General & Laparoscopic Surgery", degree: "MBBS, MS General Surgery", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Sudheer Dwarak", specialty: "Orthopedics", degree: "Dip. in Ortho, DNB Ortho (Computer Navigation Specialist)", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Nataraj Goud", specialty: "Gastroenterology", degree: "MBBS, MD, DNB (Med. Gastroenterology)", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ch. Srikanth", specialty: "Anesthesia & Critical Care", degree: "MBBS, MD Anesthesia", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. R. Nishanth", specialty: "Maxillofacial Surgeon", degree: "MDS, Fellow in Maxillofacial Surgery", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ch. Praveen Kumar", specialty: "Pulmonologist", degree: "MBBS MD (Pulmonology)", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Vamsichandra .B", specialty: "Urologist", degree: "MCh, MS, DNB Urology", image: "assets/images/placeholder-male.jpg" },
-    { name: "Dr. deepak", specialty: "Neuro Surgeon", degree: "MS, MCh Consultant Neuro-Surgeon", image: "assets/images/placeholder-male.jpg" },
+    { name: "Dr. Hanuma", specialty: "Neuro Surgeon", degree: "MBBS, MS, MCh Consultant Neuro-Surgeon", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Prashanth Kumar", specialty: "Surgical Oncologist", degree: "MS, MCh Consultant Surgical Oncologist", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ashok Reddy", specialty: "Plastic Surgeon", degree: "MCh Consultant Plastic Surgeon", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Divya Reddy B.", specialty: "Nephrology", degree: "MBBS, DNB General Medicine (Consultant Nephrologist)", image: "assets/images/placeholder-female.jpg" },
-    { name: "Dr. mahesh", specialty: "Medical Superintendent", degree: "MBBS, DNB", image: "assets/images/placeholder-male.jpg" },
+    
 ];
 
 const TESTIMONIALS = [
