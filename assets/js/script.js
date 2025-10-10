@@ -99,6 +99,7 @@ const DOCTORS = [
     { name: "Dr. Prashanth Kumar", specialty: "Surgical Oncologist", degree: "MS, MCh Consultant Surgical Oncologist", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Ashok Reddy", specialty: "Plastic Surgeon", degree: "MCh Consultant Plastic Surgeon", image: "assets/images/placeholder-male.jpg" },
     { name: "Dr. Divya Reddy B.", specialty: "Nephrology", degree: "MBBS, DNB General Medicine (Consultant Nephrologist)", image: "assets/images/placeholder-female.jpg" },
+    { name: "Dr. Avani Bhardwaj", specialty: "Gynaecologist & Infertility Specialist", degree: "MBBS, DNB, OBG", image: "assets/images/placeholder-female.jpg" },
     
 ];
 
